@@ -6,7 +6,7 @@ import allure
 
 allure.title("Public private wall post")
 allure.severity(severity_level="blocker")
-def test_public_private_wall():
+def test_post_private_wall():
 
     with allure.step("Выполнить запрос login для получения токена авторизации"):
         response = requests.get("http://10.243.10.12:5000/api/Employee/login/Пароль")
