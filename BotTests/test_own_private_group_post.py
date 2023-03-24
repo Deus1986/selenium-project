@@ -75,4 +75,3 @@ def test_own_public_group_post():
         last_post_text = posts_on_the_wall[0].find_element(By.XPATH,
                                                            '//div[@class = "media-text_cnt_tx emoji-tx textWrap"]').text
         assert last_post_text == description + time_now
-    time.sleep(10)
