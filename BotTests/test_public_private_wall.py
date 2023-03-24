@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 import requests
 import allure
 
-allure.title("Google search")
+allure.title("Public private wall post")
 allure.severity(severity_level="blocker")
 def test_public_private_wall():
 
@@ -42,7 +42,7 @@ def test_public_private_wall():
     ]
 
     with allure.step("Выполнить публикацию на стену аккаунта"):
-        postWall = requests.post("http://10.243.10.12:5000/api/WebBrowser/CreatePosts", headers=headers, json=body)
+        postWall = requests.post("http://10.243.10.12:5000/api/Posts/CreatePosts", headers=headers, json=body)
         assert postWall.status_code == 200
         time.sleep(100)
 
