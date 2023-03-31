@@ -43,7 +43,7 @@ def test_someone_private_group_post():
     with allure.step("Выполнить публикацию на стену группы"):
         postWallGroup = requests.post("http://10.243.10.12:5000/api/Posts/CreatePosts", headers=headers, json=body)
         assert postWallGroup.status_code == 200
-        time.sleep(100)
+        time.sleep(60)
 
     driver = webdriver.Chrome("E://Selenium//chromedriver.exe")
     with allure.step("Перейти на страницу одноклассников"):

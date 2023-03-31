@@ -44,7 +44,7 @@ def test_post_private_wall():
     with allure.step("Выполнить публикацию на стену аккаунта"):
         postWall = requests.post("http://10.243.10.12:5000/api/Posts/CreatePosts", headers=headers, json=body)
         assert postWall.status_code == 200
-        time.sleep(100)
+        time.sleep(60)
 
     driver = webdriver.Chrome("E://Selenium//chromedriver.exe")
     with allure.step("Перейти на страницу одноклассников"):
