@@ -9,7 +9,7 @@ allure.severity(severity_level="blocker")
 def test_post_private_wall():
 
     with allure.step("Выполнить запрос login для получения токена авторизации"):
-        response = requests.get("http://10.243.10.12:5000/api/Employee/login/Пароль")
+        response = requests.get("http://10.243.8.118:31405/api/Employee/login/Gfhjkm")
         assert response.status_code == 200
 
 
@@ -42,7 +42,7 @@ def test_post_private_wall():
     ]
 
     with allure.step("Выполнить публикацию на стену аккаунта"):
-        postWall = requests.post("http://10.243.10.12:5000/api/Posts/CreatePosts", headers=headers, json=body)
+        postWall = requests.post("http://10.243.8.118:31405/api/Posts/CreatePosts", headers=headers, json=body)
         assert postWall.status_code == 200
         time.sleep(60)
 

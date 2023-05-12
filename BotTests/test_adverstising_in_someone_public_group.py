@@ -38,7 +38,7 @@ def test_adverstising_in_someone_public_group():
         }
 
     with allure.step("Выполнить публикацию на стену группы с комментарием"):
-        postWallGroup = requests.post("http://10.243.10.12:5000/ToAdvertiseInTheGroupAlbum", headers=headers, json=body)
+        postWallGroup = requests.post("http://10.243.10.12:5000/api/Advertising/ToAdvertiseInTheGroupAlbum", headers=headers, json=body)
         assert postWallGroup.status_code == 200
         time.sleep(60)
 
