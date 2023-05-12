@@ -10,7 +10,7 @@ allure.severity(severity_level="blocker")
 
 def test_own_public_group_post():
     with allure.step("Выполнить запрос login для получения токена авторизации"):
-        response = requests.get("http://10.243.10.12:5000/api/Employee/login/Пароль")
+        response = requests.get("http://10.243.8.118:31405/api/Employee/login/Gfhjkm")
         assert response.status_code == 200
 
     response_json = response.json()
@@ -41,7 +41,7 @@ def test_own_public_group_post():
     ]
 
     with allure.step("Выполнить публикацию на стену группы"):
-        postWallGroup = requests.post("http://10.243.10.12:5000/api/Posts/CreatePosts", headers=headers, json=body)
+        postWallGroup = requests.post("http://10.243.8.118:31405/api/Posts/CreatePosts", headers=headers, json=body)
         assert postWallGroup.status_code == 200
         time.sleep(60)
 

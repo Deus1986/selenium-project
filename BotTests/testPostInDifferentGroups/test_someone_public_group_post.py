@@ -4,44 +4,43 @@ from selenium.webdriver.common.by import By
 import requests
 import allure
 
-allure.title("Someone private group wall post")
+allure.title("Someone public group wall post")
 allure.severity(severity_level="blocker")
 
 
-def test_someone_private_group_post():
+def test_someone_public_group_post():
     with allure.step("Выполнить запрос login для получения токена авторизации"):
-        response = requests.get("http://10.243.10.12:5000/api/Employee/login/Пароль")
+        response = requests.get("http://10.243.8.118:31405/api/Employee/login/Gfhjkm")
         assert response.status_code == 200
 
     response_json = response.json()
     authorization_token = response_json.get('token')
     headers = {"Authorization": "Bearer " + authorization_token}
     time_now = str(time.time())
-    description = "Калла Вермеер. Цена 410 руб.  Морозоустойчивость до -7С.Многолетнее " \
-                  "травянистое растение с клубневидным корневищем. Листья крупные," \
-                  " стреловидной формы, блестящие, восковые. Соцветие одиночное на длинном " \
-                  "цветоносе в виде кремово-желтого початка в обрамлении воронковидного, " \
-                  "слегка волнистого покрывала.  Высота растения 60-70 см. Цветение длительное, " \
-                  "июнь-сентябрь. Период цветения: июнь-август. Место посадки: солнце/полутень."
+    description = "Калла Аметист. Цена 410 руб. Морозоустойчивость до -7С." \
+                  "Многолетний, крупноцветковый сорт. Высота растения 60-70 сантиметров. " \
+                  "Период цветения: июнь-июль-август. Цветок крупного размера, в форме свечи, " \
+                  "тёмно-фиолетового цвета. Высота растения 60-70 сантиметров. " \
+                  "Период цветения: июнь-июль-август."
     body = [
         {
             "post": {
                 "description": description + time_now,
                 "photos": [
-                    "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRAo0vbrCRl1q-RnvNbvFdHg"
+                    "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRrHlEJMCSuJh5kk_tzAIpZw"
                 ]
             },
             "users": [],
             "groupIdsByUserId": {
                 "589219845582": [
-                    "70000002228915"
+                    "70000001979493"
                 ]
             }
         }
     ]
 
     with allure.step("Выполнить публикацию на стену группы"):
-        postWallGroup = requests.post("http://10.243.10.12:5000/api/Posts/CreatePosts", headers=headers, json=body)
+        postWallGroup = requests.post("http://10.243.8.118:31405/api/Posts/CreatePosts", headers=headers, json=body)
         assert postWallGroup.status_code == 200
         time.sleep(60)
 
@@ -67,8 +66,8 @@ def test_someone_private_group_post():
         side_bar_account_name_link.click()
         time.sleep(0.5)
 
-    with allure.step("Нажать на группу 'Трататули'"):
-        flowers_our_flowers = driver.find_element(By.XPATH, '//div[@data-group-id= "70000002228915"]')
+    with allure.step("Нажать на группу 'Транзисторы'"):
+        flowers_our_flowers = driver.find_element(By.XPATH, '//div[@data-group-id= "70000001979493"]')
         flowers_our_flowers.click()
         time.sleep(0.5)
 

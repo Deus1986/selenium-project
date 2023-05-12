@@ -4,42 +4,44 @@ from selenium.webdriver.common.by import By
 import requests
 import allure
 
-allure.title("Own public group wall post")
+allure.title("Someone private group wall post")
 allure.severity(severity_level="blocker")
 
 
-def test_own_public_group_post():
+def test_someone_private_group_post():
     with allure.step("Выполнить запрос login для получения токена авторизации"):
-        response = requests.get("http://10.243.10.12:5000/api/Employee/login/Пароль")
+        response = requests.get("http://10.243.8.118:31405/api/Employee/login/Gfhjkm")
         assert response.status_code == 200
 
     response_json = response.json()
     authorization_token = response_json.get('token')
     headers = {"Authorization": "Bearer " + authorization_token}
     time_now = str(time.time())
-    description = "Калла Кэптин Вентура .Цена 410 руб. Морозоустойчивость до -6С. " \
-                  "Многолетнее травянистое растение с клубневидным корневищем. Высота растения 40-50 см. " \
-                  "Соцветие каллы одиночное, белого цвета с восковым отливом, в форме початка, " \
-                  "окруженного крупным воронковидным листом."
+    description = "Калла Вермеер. Цена 410 руб.  Морозоустойчивость до -7С.Многолетнее " \
+                  "травянистое растение с клубневидным корневищем. Листья крупные," \
+                  " стреловидной формы, блестящие, восковые. Соцветие одиночное на длинном " \
+                  "цветоносе в виде кремово-желтого початка в обрамлении воронковидного, " \
+                  "слегка волнистого покрывала.  Высота растения 60-70 см. Цветение длительное, " \
+                  "июнь-сентябрь. Период цветения: июнь-август. Место посадки: солнце/полутень."
     body = [
         {
             "post": {
                 "description": description + time_now,
                 "photos": [
-                    "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRdD5PjNjorIDtPYCelRtrQg"
+                    "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRAo0vbrCRl1q-RnvNbvFdHg"
                 ]
             },
             "users": [],
             "groupIdsByUserId": {
                 "589219845582": [
-                    "70000002213582"
+                    "70000002228915"
                 ]
             }
         }
     ]
 
     with allure.step("Выполнить публикацию на стену группы"):
-        postWallGroup = requests.post("http://10.243.10.12:5000/api/Posts/CreatePosts", headers=headers, json=body)
+        postWallGroup = requests.post("http://10.243.8.118:31405/api/Posts/CreatePosts", headers=headers, json=body)
         assert postWallGroup.status_code == 200
         time.sleep(60)
 
@@ -63,14 +65,14 @@ def test_own_public_group_post():
         top_side_navigation_bar = driver.find_elements(By.XPATH, '//div[@class = "nav-side_i-w"]')
         side_bar_account_name_link = top_side_navigation_bar[4]
         side_bar_account_name_link.click()
-        time.sleep(1)
+        time.sleep(0.5)
 
-    with allure.step("Нажать на группу 'Гобигули'"):
-        flowers_our_flowers = driver.find_element(By.XPATH, '//div[@data-group-id= "70000002213582"]')
+    with allure.step("Нажать на группу 'Трататули'"):
+        flowers_our_flowers = driver.find_element(By.XPATH, '//div[@data-group-id= "70000002228915"]')
         flowers_our_flowers.click()
-        time.sleep(1)
+        time.sleep(0.5)
 
-    with allure.step("Проверить, что пост в собственную приватную группу успешно опубликован"):
+    with allure.step("Проверить, что пост в чужую публичную группу успешно опубликован"):
         posts_on_the_wall = driver.find_elements(By.XPATH, '//div[@class = "feed-w"]')
         last_post_text = posts_on_the_wall[0].find_element(By.XPATH,
                                                            '//div[@class = "media-text_cnt_tx emoji-tx textWrap"]').text
