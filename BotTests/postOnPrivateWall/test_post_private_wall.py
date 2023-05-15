@@ -7,6 +7,7 @@ from BotTests.variablesForTests.variables_for_posts import RequestsVariables as 
 from BotTests.variablesForTests.variables_for_posts import OKData as OKData
 from BotTests.variablesForTests.variables_for_posts import WebAddresses as WebAddresses
 from BotTests.variablesForTests.variables_for_posts import Pathes as Pathes
+from BotTests.variablesForTests.variables_for_posts import Locators as Locators
 
 allure.title("Public private wall post")
 allure.severity(severity_level="blocker")
@@ -49,26 +50,25 @@ def test_post_private_wall():
     with allure.step("Перейти на страницу одноклассников"):
         driver.get(WebAddresses.okLoginPageAddress)
 
-    with allure.step("Ввести логин и пароль, и нажать войти"):
-        email_field = driver.find_element(By.XPATH, '//input[@id = "field_email"]')
-        email_field.send_keys(77712906977)
+    with allure.step("Ввести логин"):
+        email_field = driver.find_element(By.XPATH, Locators.loginField)
+        email_field.send_keys(OKData.loginSeric)
 
     with allure.step("Ввести пароль"):
-        password_field = driver.find_element(By.XPATH, '//input[@id = "field_password"]')
-        password_field.send_keys('lexusrx300')
+        password_field = driver.find_element(By.XPATH, Locators.passwordField)
+        password_field.send_keys(OKData.passwordSeric)
 
     with allure.step("Нажать войти"):
-        enter_account_button = driver.find_element(By.XPATH, '//input[@value= "Войти в Одноклассники"]')
+        enter_account_button = driver.find_element(By.XPATH, Locators.enterOKButton)
         enter_account_button.click()
 
     with allure.step("Нажать на имя пользователя в сайд баре"):
-        top_side_navigation_bar = driver.find_elements(By.XPATH, '//div[@class = "nav-side_i-w"]')
+        top_side_navigation_bar = driver.find_elements(By.XPATH, Locators.topSideNavigationBarLocators)
         side_bar_account_name_link = top_side_navigation_bar[0]
         side_bar_account_name_link.click()
         time.sleep(1)
 
     with allure.step("Проверить, что пост успешно опубликован"):
-        posts_on_the_wall = driver.find_elements(By.XPATH, '//div[@class = "feed-w"]')
-        last_post_text = posts_on_the_wall[0].find_element(By.XPATH,
-                                                           '//div[@class = "media-text_cnt_tx emoji-tx textWrap"]').text
+        posts_on_the_wall = driver.find_elements(By.XPATH, Locators.lastPost)
+        last_post_text = posts_on_the_wall[0].find_element(By.XPATH, Locators.lastPostContent).text
         assert last_post_text == description + time_now

@@ -3,34 +3,36 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 import requests
 import allure
+from BotTests.variablesForTests.variables_for_posts import RequestsVariables as RequestsVariables
+from BotTests.variablesForTests.variables_for_posts import OKData as OKData
+from BotTests.variablesForTests.variables_for_posts import WebAddresses as WebAddresses
+from BotTests.variablesForTests.variables_for_posts import Pathes as Pathes
+from BotTests.variablesForTests.variables_for_posts import Locators as Locators
+from BotTests.variablesForTests.variables_for_posts import Users as Users
 
 allure.title("Adverstising_in_someone_private_group")
 allure.severity(severity_level="blocker")
 
 def test_adverstising_in_someone_private_group():
     with allure.step("Выполнить запрос login для получения токена авторизации"):
-        response = requests.get("http://10.243.8.118:31405/api/Employee/login/Gfhjkm")
+        response = requests.get(RequestsVariables.baseUrl + "/api/Employee/login/" + RequestsVariables.password)
         assert response.status_code == 200
 
     response_json = response.json()
     authorization_token = response_json.get('token')
     headers = {"Authorization": "Bearer " + authorization_token}
     time_now = str(time.time())
-    userName = "Серик Обуманян"
-    comment = "Вот такие вот Трататули"
-    description = "Калла Аметист. Цена 410 руб. Морозоустойчивость до -7С." \
-                  "Многолетний, крупноцветковый сорт. Высота растения 60-70 сантиметров. " \
-                  "Период цветения: июнь-июль-август. Цветок крупного размера, в форме свечи, " \
-                  "тёмно-фиолетового цвета. Высота растения 60-70 сантиметров. " \
-                  "Период цветения: июнь-июль-август."
+    userName = Users.sericUserName
+    comment = Users.userComment3
+    description = OKData.callaAmetistDescription
     body = {
-            "accountId": "589219845582",
+            "accountId": OKData.userId,
             "groupIds": [
-                "70000002228915"
+                OKData.groupTratatuliId
             ],
             "photos": [
                 {
-                    "url": "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRrHlEJMCSuJh5kk_tzAIpZw",
+                    "url": OKData.callaAmetistPhoto,
                     "description": description + time_now,
                     "comment": comment + time_now
                 }
@@ -38,57 +40,56 @@ def test_adverstising_in_someone_private_group():
         }
 
     with allure.step("Выполнить публикацию на стену группы с комментарием"):
-        postWallGroup = requests.post("http://10.243.8.118:31405/api/Advertising/ToAdvertiseInTheGroupAlbum", headers=headers, json=body)
+        postWallGroup = requests.post(RequestsVariables.baseUrl +"/api/Advertising/ToAdvertiseInTheGroupAlbum", headers=headers, json=body)
         assert postWallGroup.status_code == 200
         time.sleep(60)
 
-    driver = webdriver.Chrome("E://Selenium//chromedriver.exe")
+    driver = webdriver.Chrome(Pathes.webDriverChromeLocalPath)
     with allure.step("Перейти на страницу одноклассников"):
-        driver.get("https://ok.ru/")
+        driver.get(WebAddresses.okLoginPageAddress)
 
-    with allure.step("Ввести логин и пароль, и нажать войти"):
-        email_field = driver.find_element(By.XPATH, '//input[@id = "field_email"]')
-        email_field.send_keys(77712906977)
+    with allure.step("Ввести логин"):
+        email_field = driver.find_element(By.XPATH, Locators.loginField)
+        email_field.send_keys(OKData.loginSeric)
 
     with allure.step("Ввести пароль"):
-        password_field = driver.find_element(By.XPATH, '//input[@id = "field_password"]')
-        password_field.send_keys('lexusrx300')
+        password_field = driver.find_element(By.XPATH, Locators.passwordField)
+        password_field.send_keys(OKData.passwordSeric)
 
     with allure.step("Нажать войти"):
-        enter_account_button = driver.find_element(By.XPATH, '//input[@value= "Войти в Одноклассники"]')
+        enter_account_button = driver.find_element(By.XPATH, Locators.enterOKButton)
         enter_account_button.click()
 
     with allure.step("Нажать на 'группы' в сайд баре"):
-        top_side_navigation_bar = driver.find_elements(By.XPATH, '//div[@class = "nav-side_i-w"]')
+        top_side_navigation_bar = driver.find_elements(By.XPATH, Locators.topSideNavigationBarLocators)
         side_bar_account_name_link = top_side_navigation_bar[4]
         side_bar_account_name_link.click()
         time.sleep(0.5)
 
     with allure.step("Нажать на группу 'Трататули'"):
-        flowers_our_flowers = driver.find_element(By.XPATH, '//div[@data-group-id= "70000002228915"]')
+        flowers_our_flowers = driver.find_element(By.XPATH, Locators.tratatuliLocator)
         flowers_our_flowers.click()
         time.sleep(0.5)
 
     with allure.step("Нажать на фото последнего поста"):
-        photo_posts = driver.find_elements(By.XPATH, '//img[@class = "collage_img"]')
+        photo_posts = driver.find_elements(By.XPATH, Locators.lastPostPhoto)
         photo_posts[0].click()
         time.sleep(0.5)
 
     with allure.step("Проверить, что пост успешно опубликованн в чужую закрытую группу"):
-        posts_text = driver.find_element(By.XPATH, '//div[@class = "h-mod photo-layer_descr photo-layer_bottom_block"]'
-                                                   '//div[@tsid= "TextFieldText"]').text
+        posts_text = driver.find_element(By.XPATH, Locators.postText).text
         assert posts_text == description + time_now
         time.sleep(0.5)
 
     with allure.step("Проверить, что комментарий успешно опубликованн в чужую закрытую группу"):
-        allComments = driver.find_elements(By.XPATH, '// span[ @class = "js-text-full"]')
+        allComments = driver.find_elements(By.XPATH, Locators.allComments)
         commentText = allComments[0].text
 
         assert commentText == comment + time_now
         time.sleep(0.5)
 
     with allure.step('Проверить, что комментарий оставлен {userName}'):
-        allAuthorName = driver.find_elements(By.XPATH, '// a[ @class = "comments_author-name o"]')
+        allAuthorName = driver.find_elements(By.XPATH, Locators.allCommentsAuthorNames)
         authorName = allAuthorName[0].text
 
         assert authorName == userName
