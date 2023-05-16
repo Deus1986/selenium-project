@@ -20,6 +20,7 @@ def test_own_public_group_post():
 
     response_json = response.json()
     authorization_token = response_json.get('token')
+
     headers = {"Authorization": "Bearer " + authorization_token}
     time_now = str(time.time())
     description = OKData.callaHameleonDescription
