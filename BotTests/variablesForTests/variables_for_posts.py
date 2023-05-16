@@ -32,10 +32,24 @@ class OKData:
                   "сантиметров в высоту. Листья вытянутые, зеленого цвета с белым вкраплением. " \
                   "Цветки в форме свечи, желто-оранжево-розовые."
 
+    callaCaptinVenturaDescription = "Калла Кэптин Вентура .Цена 410 руб. Морозоустойчивость до -6С. " \
+                  "Многолетнее травянистое растение с клубневидным корневищем. Высота растения 40-50 см. " \
+                  "Соцветие каллы одиночное, белого цвета с восковым отливом, в форме початка, " \
+                  "окруженного крупным воронковидным листом."
+
+    callaVermeerDescription = "Калла Вермеер. Цена 410 руб.  Морозоустойчивость до -7С.Многолетнее " \
+                  "травянистое растение с клубневидным корневищем. Листья крупные," \
+                  " стреловидной формы, блестящие, восковые. Соцветие одиночное на длинном " \
+                  "цветоносе в виде кремово-желтого початка в обрамлении воронковидного, " \
+                  "слегка волнистого покрывала.  Высота растения 60-70 см. Цветение длительное, " \
+                  "июнь-сентябрь. Период цветения: июнь-август. Место посадки: солнце/полутень."
+
     callaHameleonPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRpNHaRE83Idry9iysh9m3LQ"
     callaCaptinMorelliPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRokwSgPrsezL9_J6y_vVGQg"
     callaAmetistPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRrHlEJMCSuJh5kk_tzAIpZw"
     callaCaptinSafariPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRokwSgPrsezL9_J6y_vVGQg"
+    callaCaptinVenturaPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRdD5PjNjorIDtPYCelRtrQg"
+    callaVermeerPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRAo0vbrCRl1q-RnvNbvFdHg"
 
     userId = "589219845582"
 
