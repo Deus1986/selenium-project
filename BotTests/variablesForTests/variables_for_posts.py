@@ -1,12 +1,15 @@
+from selenium.webdriver.common.by import By
+
+
 class RequestsVariables:
-    baseUrl = "http://10.243.8.118:31405"
-    password = "Gfhjkm"
+    BASE_URL = "http://10.243.8.118:31405"
+    PASSWORD = "Gfhjkm"
 
 class OKData:
 
-    loginSeric = 77712906977
-    passwordSeric = 'lexusrx300'
-    callaHameleonDescription = "Калла Хамелеон. Цена 410 руб. Морозостойкость -6. " \
+    LOGIN_SERIC = 77712906977
+    PASSWORD_SERIC = 'lexusrx300'
+    CALLA_CHAMELEON_DESCRIPTION = "Калла Хамелеон. Цена 410 руб. Морозостойкость -6. " \
                   "Многолетнее травянистое растение с клубневидным корневищем. Листья крупные, " \
                   "стреловидной формы, блестящие, восковые. Соцветие одиночное на длинном цветоносе " \
                   "в виде кремово-желтого початка в обрамлении воронковидного, слегка волнистого покрывала. " \
@@ -44,14 +47,14 @@ class OKData:
                   "слегка волнистого покрывала.  Высота растения 60-70 см. Цветение длительное, " \
                   "июнь-сентябрь. Период цветения: июнь-август. Место посадки: солнце/полутень."
 
-    callaHameleonPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRpNHaRE83Idry9iysh9m3LQ"
+    CALLA_CHAMELEON_PHOTO = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRpNHaRE83Idry9iysh9m3LQ"
     callaCaptinMorelliPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRokwSgPrsezL9_J6y_vVGQg"
     callaAmetistPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRrHlEJMCSuJh5kk_tzAIpZw"
     callaCaptinSafariPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRokwSgPrsezL9_J6y_vVGQg"
     callaCaptinVenturaPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRdD5PjNjorIDtPYCelRtrQg"
     callaVermeerPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRAo0vbrCRl1q-RnvNbvFdHg"
 
-    userId = "589219845582"
+    USER_ID = "589219845582"
 
     groupGobiguliId = "70000002213582"
     groupFlowersOurFlowersId = "70000002189774"
@@ -59,7 +62,7 @@ class OKData:
     groupTransistorsiId = "70000001979493"
 
 class WebAddresses:
-    okLoginPageAddress = "https://ok.ru/"
+    OK_LOGIN_PAGE_ADDRESS = "https://ok.ru/"
 
 class Pathes:
     webDriverChromeLocalPath = "E://Selenium//chromedriver.exe"
@@ -67,16 +70,18 @@ class Pathes:
 class Locators:
 
     #authorization page
-    loginField = '//input[@id = "field_email"]'
-    passwordField = '//input[@id = "field_password"]'
-    enterOKButton = '//input[@value= "Войти в Одноклассники"]'
+    LOGIN_FIELD = (By.XPATH, '//input[@id = "field_email"]')
+    PASSWORD_FIELD = (By.XPATH, '//input[@id = "field_password"]')
+    ENTER_OK_BUTTON = (By.XPATH, '//input[@value= "Войти в Одноклассники"]')
 
     #top side bar
-    topSideNavigationBarLocators = '//div[@class = "nav-side_i-w"]'
+    TOP_SIDE_NAVIGATION_BAR_LOCATORS = (By.XPATH, '//div[@class = "nav-side_i-w"]')
+    TOP_SIDE_NAVIGATION_BAR_LOCATORS_WITHOUT_XPATH = '//div[@class = "nav-side_i-w"]'
 
     #wall
-    lastPost = '//div[@class = "feed-w"]'
-    lastPostContent = '//div[@class = "media-text_cnt_tx emoji-tx textWrap"]'
+    PRIVAT_WALL = (By.XPATH, '//div[@id= "hook_Block_UserFeed"]')
+    LAST_POST = '//div[@class = "feed-w"]'
+    LAST_POST_CONTENT = (By.XPATH, '//div[@class = "media-text_cnt_tx emoji-tx textWrap"]')
     lastPostPhoto = '//img[@class = "collage_img"]'
     postText = '//div[@class = "h-mod photo-layer_descr photo-layer_bottom_block"]//div[@tsid= "TextFieldText"]'
     allComments = '// span[ @class = "js-text-full"]'

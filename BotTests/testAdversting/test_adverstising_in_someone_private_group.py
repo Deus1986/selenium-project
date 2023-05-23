@@ -15,7 +15,7 @@ allure.severity(severity_level="blocker")
 
 def test_adverstising_in_someone_private_group():
     with allure.step("Выполнить запрос login для получения токена авторизации"):
-        response = requests.get(RequestsVariables.baseUrl + "/api/Employee/login/" + RequestsVariables.password)
+        response = requests.get(RequestsVariables.BASE_URL + "/api/Employee/login/" + RequestsVariables.PASSWORD)
         assert response.status_code == 200
 
     response_json = response.json()
@@ -26,7 +26,7 @@ def test_adverstising_in_someone_private_group():
     comment = Users.userComment3
     description = OKData.callaAmetistDescription
     body = {
-            "accountId": OKData.userId,
+            "accountId": OKData.USER_ID,
             "groupIds": [
                 OKData.groupTratatuliId
             ],
@@ -40,28 +40,28 @@ def test_adverstising_in_someone_private_group():
         }
 
     with allure.step("Выполнить публикацию на стену группы с комментарием"):
-        postWallGroup = requests.post(RequestsVariables.baseUrl +"/api/Advertising/ToAdvertiseInTheGroupAlbum", headers=headers, json=body)
+        postWallGroup = requests.post(RequestsVariables.BASE_URL + "/api/Advertising/ToAdvertiseInTheGroupAlbum", headers=headers, json=body)
         assert postWallGroup.status_code == 200
         time.sleep(60)
 
     driver = webdriver.Chrome(Pathes.webDriverChromeLocalPath)
     with allure.step("Перейти на страницу одноклассников"):
-        driver.get(WebAddresses.okLoginPageAddress)
+        driver.get(WebAddresses.OK_LOGIN_PAGE_ADDRESS)
 
     with allure.step("Ввести логин"):
         email_field = driver.find_element(By.XPATH, Locators.loginField)
         email_field.send_keys(OKData.loginSeric)
 
     with allure.step("Ввести пароль"):
-        password_field = driver.find_element(By.XPATH, Locators.passwordField)
-        password_field.send_keys(OKData.passwordSeric)
+        password_field = driver.find_element(By.XPATH, Locators.PASSWORD_FIELD)
+        password_field.send_keys(OKData.PASSWORD_SERIC)
 
     with allure.step("Нажать войти"):
-        enter_account_button = driver.find_element(By.XPATH, Locators.enterOKButton)
+        enter_account_button = driver.find_element(By.XPATH, Locators.ENTER_OK_BUTTON)
         enter_account_button.click()
 
     with allure.step("Нажать на 'группы' в сайд баре"):
-        top_side_navigation_bar = driver.find_elements(By.XPATH, Locators.topSideNavigationBarLocators)
+        top_side_navigation_bar = driver.find_elements(By.XPATH, Locators.TOP_SIDE_NAVIGATION_BAR_LOCATORS)
         side_bar_account_name_link = top_side_navigation_bar[4]
         side_bar_account_name_link.click()
         time.sleep(0.5)

@@ -6,8 +6,9 @@ import allure
 from BotTests.variablesForTests.variables_for_posts import RequestsVariables as RequestsVariables
 from BotTests.variablesForTests.variables_for_posts import OKData as OKData
 from BotTests.variablesForTests.variables_for_posts import WebAddresses as WebAddresses
-from BotTests.variablesForTests.variables_for_posts import Pathes as Pathes
 from BotTests.variablesForTests.variables_for_posts import Locators as Locators
+from conftest import driver
+from pages.form_page import FormPage
 
 allure.title("Own public group wall post")
 allure.severity(severity_level="blocker")
@@ -15,7 +16,7 @@ allure.severity(severity_level="blocker")
 
 def test_own_public_group_post():
     with allure.step("Выполнить запрос login для получения токена авторизации"):
-        response = requests.get(RequestsVariables.baseUrl + "/api/Employee/login/" + RequestsVariables.password)
+        response = requests.get(RequestsVariables.BASE_URL + "/api/Employee/login/" + RequestsVariables.PASSWORD)
         assert response.status_code == 200
 
     response_json = response.json()
@@ -23,18 +24,18 @@ def test_own_public_group_post():
 
     headers = {"Authorization": "Bearer " + authorization_token}
     time_now = str(time.time())
-    description = OKData.callaHameleonDescription
+    description = OKData.CALLA_CHAMELEON_DESCRIPTION
     body = [
         {
             "post": {
                 "description": description + time_now,
                 "photos": [
-                    OKData.callaHameleonPhoto
+                    OKData.CALLA_CHAMELEON_PHOTO
                 ]
             },
             "users": [],
             "groupIdsByUserId": {
-                OKData.userId: [
+                OKData.USER_ID: [
                     OKData.groupFlowersOurFlowersId
                 ]
             }
@@ -42,31 +43,25 @@ def test_own_public_group_post():
     ]
 
     with allure.step("Выполнить публикацию на стену группы"):
-        postWallGroup = requests.post(RequestsVariables.baseUrl +"/api/Posts/CreatePosts", headers=headers, json=body)
-        assert postWallGroup.status_code == 200
+        post_wall = requests.post(RequestsVariables.BASE_URL + "/api/Posts/CreatePosts", headers=headers, json=body)
+        assert post_wall.status_code == 200
         time.sleep(60)
 
-    driver = webdriver.Chrome(Pathes.webDriverChromeLocalPath)
     with allure.step("Перейти на страницу одноклассников"):
-        driver.get(WebAddresses.okLoginPageAddress)
+        form_page = FormPage(driver, WebAddresses.OK_LOGIN_PAGE_ADDRESS)
+        form_page.openpage()
 
     with allure.step("Ввести логин"):
-        email_field = driver.find_element(By.XPATH, Locators.loginField)
-        email_field.send_keys(OKData.loginSeric)
+        form_page.enter_login()
 
     with allure.step("Ввести пароль"):
-        password_field = driver.find_element(By.XPATH, Locators.passwordField)
-        password_field.send_keys(OKData.passwordSeric)
+        form_page.enter_password()
 
     with allure.step("Нажать войти"):
-        enter_account_button = driver.find_element(By.XPATH, Locators.enterOKButton)
-        enter_account_button.click()
+        form_page.click_enter_button()
 
     with allure.step("Нажать на 'группы' в сайд баре"):
-        top_side_navigation_bar = driver.find_elements(By.XPATH, Locators.topSideNavigationBarLocators)
-        side_bar_account_name_link = top_side_navigation_bar[4]
-        side_bar_account_name_link.click()
-        time.sleep(1)
+        form_page.click_group_name_in_side_bar(Locators.TOP_SIDE_NAVIGATION_BAR_LOCATORS_WITHOUT_XPATH)
 
     with allure.step("Нажать на группу 'Цветочки наши цветочки'"):
         flowers_our_flowers = driver.find_element(By.XPATH, Locators.flowersOurFlowersLocator)
@@ -74,6 +69,6 @@ def test_own_public_group_post():
         time.sleep(1)
 
     with allure.step("Проверить, что пост в собственную публичную группу успешно опубликован"):
-        posts_on_the_wall = driver.find_elements(By.XPATH, Locators.lastPost)
-        last_post_text = posts_on_the_wall[0].find_element(By.XPATH, Locators.lastPostContent).text
+        posts_on_the_wall = driver.find_elements(By.XPATH, Locators.LAST_POST)
+        last_post_text = posts_on_the_wall[0].find_element(By.XPATH, Locators.LAST_POST_CONTENT).text
         assert last_post_text == description + time_now

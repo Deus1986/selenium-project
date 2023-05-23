@@ -9,6 +9,7 @@ from BotTests.variablesForTests.variables_for_posts import WebAddresses as WebAd
 from BotTests.variablesForTests.variables_for_posts import Pathes as Pathes
 from BotTests.variablesForTests.variables_for_posts import Locators as Locators
 
+
 driver = webdriver.Chrome(Pathes.webDriverChromeLocalPath)
 def user_authorizaion(login, loginInputLocator, password, passwordInputLocator):
     with allure.step("Ввести логин"):
@@ -20,14 +21,14 @@ def user_authorizaion(login, loginInputLocator, password, passwordInputLocator):
         password_field.send_keys(password)
 
     with allure.step("Нажать войти"):
-        enter_account_button = driver.find_element(By.XPATH, Locators.enterOKButton)
+        enter_account_button = driver.find_element(By.XPATH, Locators.ENTER_OK_BUTTON)
         enter_account_button.click()
 def open_OK_page():
     with allure.step("Перейти на страницу одноклассников"):
-        driver.get(WebAddresses.okLoginPageAddress)
+        driver.get(WebAddresses.OK_LOGIN_PAGE_ADDRESS)
 def get_api_authorization_token(baseUrl, password):
     with allure.step("Выполнить запрос login для получения токена авторизации"):
-        response = requests.get(RequestsVariables.baseUrl + "/api/Employee/login/" + RequestsVariables.password)
+        response = requests.get(RequestsVariables.BASE_URL + "/api/Employee/login/" + RequestsVariables.PASSWORD)
         assert response.status_code == 200
         response_json = response.json()
         authorization_token = response_json.get('token')
