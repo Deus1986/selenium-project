@@ -21,13 +21,18 @@ class FormPage(BasePage):
         top_side_navigation_bar = self.element_are_visible(Locators.TOP_SIDE_NAVIGATION_BAR_LOCATORS)
         top_side_navigation_bar[0].click()
 
-    def check_post_publication_in_privat_wall(self, description, time_now):
-        self.element_are_visible(Locators.PRIVAT_WALL)
-        last_post_text = self.driver.find_elements(By.XPATH, Locators.LAST_POST)
-        a = last_post_text[0].find_element(By.XPATH, '//div[@class = "media-text_cnt_tx emoji-tx textWrap"]').text
-        assert a == description + time_now
+    def check_post_publication(self, page_locator, description, time_now, last_post_text_locator):
+        self.element_are_visible(page_locator)
+        last_post = self.driver.find_elements(By.XPATH, Locators.LAST_POST)
+        last_post_text = last_post[0].find_element(By.XPATH, last_post_text_locator).text
+        print(last_post_text)
+        assert last_post_text == description + time_now
 
-    def click_group_name_in_side_bar(self, top_side_navigation_bar_locators):
+    def click_group_in_side_bar(self, top_side_navigation_bar_locators):
         top_side_navigation_bar = self.driver.find_elements(By.XPATH, top_side_navigation_bar_locators)
         side_bar_account_name_link = top_side_navigation_bar[4]
         side_bar_account_name_link.click()
+
+    def click_group_name_in_side_bar(self, group_name):
+        name_group_locator = self.element_is_visible(group_name)
+        name_group_locator.click()

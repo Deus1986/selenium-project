@@ -28,7 +28,7 @@ def test_adverstising_in_own_private_group():
     body = {
             "accountId": OKData.USER_ID,
             "groupIds": [
-                OKData.groupGobiguliId
+                OKData.GROUP_GOBIGULI_ID
             ],
             "photos": [
                 {
@@ -67,7 +67,7 @@ def test_adverstising_in_own_private_group():
         time.sleep(0.5)
 
     with allure.step("Нажать на группу 'Гобигули'"):
-        flowers_our_flowers = driver.find_element(By.XPATH, Locators.gobiguliLocator)
+        flowers_our_flowers = driver.find_element(By.XPATH, Locators.GOBIGULI_GROUP)
         flowers_our_flowers.click()
         time.sleep(0.5)
 

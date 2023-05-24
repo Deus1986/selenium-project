@@ -24,7 +24,7 @@ def test_adverstising_in_someone_private_group():
     time_now = str(time.time())
     userName = Users.sericUserName
     comment = Users.userComment3
-    description = OKData.callaAmetistDescription
+    description = OKData.CALLA_AMETIST_DESCRIPTION
     body = {
             "accountId": OKData.USER_ID,
             "groupIds": [
@@ -32,7 +32,7 @@ def test_adverstising_in_someone_private_group():
             ],
             "photos": [
                 {
-                    "url": OKData.callaAmetistPhoto,
+                    "url": OKData.CALLA_AMETIST_PHOTO,
                     "description": description + time_now,
                     "comment": comment + time_now
                 }

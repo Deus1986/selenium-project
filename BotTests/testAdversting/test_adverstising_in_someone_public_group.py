@@ -28,7 +28,7 @@ def test_adverstising_in_someone_public_group():
     body = {
             "accountId": OKData.USER_ID,
             "groupIds": [
-                OKData.groupTransistorsiId
+                OKData.GROUP_TRANSISTORS_ID
             ],
             "photos": [
                 {
@@ -67,7 +67,7 @@ def test_adverstising_in_someone_public_group():
         time.sleep(0.5)
 
     with allure.step("Нажать на группу 'Транзисторы'"):
-        flowers_our_flowers = driver.find_element(By.XPATH, Locators.transistorsLocator)
+        flowers_our_flowers = driver.find_element(By.XPATH, Locators.TRANSISTORS_GROUP)
         flowers_our_flowers.click()
         time.sleep(0.5)
 

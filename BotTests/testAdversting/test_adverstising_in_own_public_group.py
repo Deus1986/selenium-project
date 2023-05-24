@@ -28,7 +28,7 @@ def test_adverstising_in_own_public_group():
     body = {
             "accountId": OKData.USER_ID,
             "groupIds": [
-                OKData.groupFlowersOurFlowersId
+                OKData.GROUP_FLOWERS_OUR_FLOWERS_ID
             ],
             "photos": [
                 {

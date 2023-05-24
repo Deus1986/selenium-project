@@ -8,8 +8,8 @@ from BotTests.variablesForTests.variables_for_posts import Locators as Locators
 from pages.form_page import FormPage
 
 
-class TestPostInOwnPublicGroup:
-    allure.title("Own public group wall post")
+class TestPostInSomeonePrivateGroup:
+    allure.title("Someone private group wall post")
     allure.severity(severity_level="blocker")
 
     def test_own_public_group_post(self, driver):
@@ -22,19 +22,19 @@ class TestPostInOwnPublicGroup:
 
         headers = {"Authorization": "Bearer " + authorization_token}
         time_now = str(time.time())
-        description = OKData.CALLA_CAPTIN_VENTURA_DESCRIPTION
+        description = OKData.CALLA_VERMEER_DESCRIPTION
         body = [
             {
                 "post": {
                     "description": description + time_now,
                     "photos": [
-                        OKData.CALLA_CAPTIN_VENTURA_PHOTO
+                        OKData.CALLA_VERMEER_PHOTO
                     ]
                 },
                 "users": [],
                 "groupIdsByUserId": {
                     OKData.USER_ID: [
-                        OKData.GROUP_GOBIGULI_ID
+                        OKData.GROUP_TRATATULI_ID
                     ]
                 }
             }
@@ -62,7 +62,7 @@ class TestPostInOwnPublicGroup:
             form_page.click_group_in_side_bar(Locators.TOP_SIDE_NAVIGATION_BAR_LOCATORS_WITHOUT_XPATH)
 
         with allure.step("Нажать на группу 'Цветочки наши цветочки'"):
-            form_page.click_group_name_in_side_bar(Locators.GOBIGULI_GROUP)
+            form_page.click_group_name_in_side_bar(Locators.TRATATULI_GROUP)
 
         with allure.step("Проверить, что пост в собственную публичную группу успешно опубликован"):
             form_page.check_post_publication(Locators.GROUP_PAGE, description, time_now, Locators.LAST_POST_CONTENT)

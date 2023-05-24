@@ -23,7 +23,7 @@ class OKData:
                                     "растение, которое украсит не только сад, но и дом. Представляет собой небольшой " \
                                     "травянистый куст шириной 30 -35см и высотой цветоноса до 60 см."
 
-    callaAmetistDescription = "Калла Аметист. Цена 410 руб. Морозоустойчивость до -7С." \
+    CALLA_AMETIST_DESCRIPTION = "Калла Аметист. Цена 410 руб. Морозоустойчивость до -7С." \
                   "Многолетний, крупноцветковый сорт. Высота растения 60-70 сантиметров. " \
                   "Период цветения: июнь-июль-август. Цветок крупного размера, в форме свечи, " \
                   "тёмно-фиолетового цвета. Высота растения 60-70 сантиметров. " \
@@ -35,12 +35,12 @@ class OKData:
                   "сантиметров в высоту. Листья вытянутые, зеленого цвета с белым вкраплением. " \
                   "Цветки в форме свечи, желто-оранжево-розовые."
 
-    callaCaptinVenturaDescription = "Калла Кэптин Вентура .Цена 410 руб. Морозоустойчивость до -6С. " \
+    CALLA_CAPTIN_VENTURA_DESCRIPTION = "Калла Кэптин Вентура .Цена 410 руб. Морозоустойчивость до -6С. " \
                   "Многолетнее травянистое растение с клубневидным корневищем. Высота растения 40-50 см. " \
                   "Соцветие каллы одиночное, белого цвета с восковым отливом, в форме початка, " \
                   "окруженного крупным воронковидным листом."
 
-    callaVermeerDescription = "Калла Вермеер. Цена 410 руб.  Морозоустойчивость до -7С.Многолетнее " \
+    CALLA_VERMEER_DESCRIPTION = "Калла Вермеер. Цена 410 руб.  Морозоустойчивость до -7С.Многолетнее " \
                   "травянистое растение с клубневидным корневищем. Листья крупные," \
                   " стреловидной формы, блестящие, восковые. Соцветие одиночное на длинном " \
                   "цветоносе в виде кремово-желтого початка в обрамлении воронковидного, " \
@@ -49,17 +49,17 @@ class OKData:
 
     CALLA_CHAMELEON_PHOTO = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRpNHaRE83Idry9iysh9m3LQ"
     callaCaptinMorelliPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRokwSgPrsezL9_J6y_vVGQg"
-    callaAmetistPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRrHlEJMCSuJh5kk_tzAIpZw"
+    CALLA_AMETIST_PHOTO = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRrHlEJMCSuJh5kk_tzAIpZw"
     callaCaptinSafariPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRokwSgPrsezL9_J6y_vVGQg"
-    callaCaptinVenturaPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRdD5PjNjorIDtPYCelRtrQg"
-    callaVermeerPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRAo0vbrCRl1q-RnvNbvFdHg"
+    CALLA_CAPTIN_VENTURA_PHOTO = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRdD5PjNjorIDtPYCelRtrQg"
+    CALLA_VERMEER_PHOTO = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRAo0vbrCRl1q-RnvNbvFdHg"
 
     USER_ID = "589219845582"
 
-    groupGobiguliId = "70000002213582"
-    groupFlowersOurFlowersId = "70000002189774"
-    groupTratatuliId = "70000002228915"
-    groupTransistorsiId = "70000001979493"
+    GROUP_GOBIGULI_ID = "70000002213582"
+    GROUP_FLOWERS_OUR_FLOWERS_ID = "70000002189774"
+    GROUP_TRATATULI_ID = "70000002228915"
+    GROUP_TRANSISTORS_ID = "70000001979493"
 
 class WebAddresses:
     OK_LOGIN_PAGE_ADDRESS = "https://ok.ru/"
@@ -81,17 +81,18 @@ class Locators:
     #wall
     PRIVAT_WALL = (By.XPATH, '//div[@id= "hook_Block_UserFeed"]')
     LAST_POST = '//div[@class = "feed-w"]'
-    LAST_POST_CONTENT = (By.XPATH, '//div[@class = "media-text_cnt_tx emoji-tx textWrap"]')
+    LAST_POST_CONTENT = '//div[@class = "media-text_cnt_tx emoji-tx textWrap"]'
     lastPostPhoto = '//img[@class = "collage_img"]'
     postText = '//div[@class = "h-mod photo-layer_descr photo-layer_bottom_block"]//div[@tsid= "TextFieldText"]'
     allComments = '// span[ @class = "js-text-full"]'
     allCommentsAuthorNames = '// a[ @class = "comments_author-name o"]'
 
     #group locators
-    gobiguliLocator = '//div[@data-group-id= "70000002213582"]'
-    flowersOurFlowersLocator = '//div[@data-group-id= "70000002189774"]'
-    tratatuliLocator = '//div[@data-group-id= "70000002228915"]'
-    transistorsLocator = '//div[@data-group-id= "70000001979493"]'
+    GROUP_PAGE = (By.XPATH, '//div[@id= "hook_Block_AltGroupMainMRB"]')
+    GOBIGULI_GROUP = (By.XPATH, '//div[@data-group-id= "70000002213582"]')
+    FLOWERS_OUR_FLOWERS_GROUP = (By.XPATH, '//div[@data-group-id= "70000002189774"]')
+    TRATATULI_GROUP = (By.XPATH, '//div[@data-group-id= "70000002228915"]')
+    TRANSISTORS_GROUP = (By.XPATH, '//div[@data-group-id= "70000001979493"]')
 class Users:
     sericUserName = "Серик Обуманян"
     userComment1 = "Вот такие вот гобигули"

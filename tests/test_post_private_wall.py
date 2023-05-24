@@ -1,7 +1,7 @@
 import time
 import requests
 import allure
-from BotTests.variablesForTests.variables_for_posts import RequestsVariables as RequestsVariables
+from BotTests.variablesForTests.variables_for_posts import RequestsVariables as RequestsVariables, Locators
 from BotTests.variablesForTests.variables_for_posts import OKData as OKData
 from BotTests.variablesForTests.variables_for_posts import WebAddresses as WebAddresses
 from pages.form_page import FormPage
@@ -60,7 +60,5 @@ class TestPostPrivateWall:
         with allure.step("Нажать на имя пользователя в сайд баре"):
             form_page.click_user_name_in_side_bar()
 
-
         with allure.step("Проверить, что пост успешно опубликован"):
-            form_page.check_post_publication_in_privat_wall(description, time_now)
-
+            form_page.check_post_publication(Locators.PRIVAT_WALL, description, time_now, Locators.LAST_POST_CONTENT)
