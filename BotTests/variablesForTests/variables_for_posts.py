@@ -16,7 +16,7 @@ class OKData:
                   "Окраска разнообразная: белая, желтая, розовая, карминная, лиловая. Высота прямых цветоносов " \
                   "достигает 60 см. Листья стреловидные, остроконечные или в форме сердца, темно-зеленые с белым крапом. "
 
-    callaCaptinMorelliDescription = "Калла Кэптин Морелли. Цена 410 руб. Морозоустойчивость до -7С." \
+    CALLA_CAPTIN_MORELLI_DESCRIPTION = "Калла Кэптин Морелли. Цена 410 руб. Морозоустойчивость до -7С." \
                                     "Очень элегантный цветок, одетый в нежное желтое покрывало с легким " \
                                     "фиолетовым тоном и со светлыми прожилками. Листья темно-зеленого цвета с " \
                                     "редким, белым крапом и восковым блеском. Калла - многолетнее травянистое " \
@@ -29,7 +29,7 @@ class OKData:
                   "тёмно-фиолетового цвета. Высота растения 60-70 сантиметров. " \
                   "Период цветения: июнь-июль-август."
 
-    callaCaptinSafariDescription = "Калла Кэптин Сафари. Цена 410 руб. Морозоустойчивость до -7С." \
+    CALLA_CAPTIN_SAFARI_DESCRIPTION = "Калла Кэптин Сафари. Цена 410 руб. Морозоустойчивость до -7С." \
                   "Растение представляет собой травянистое многолетнее клубневое " \
                   "красивоцветущее растение. Высота взрослого растения достигает 50-80 " \
                   "сантиметров в высоту. Листья вытянутые, зеленого цвета с белым вкраплением. " \
@@ -48,9 +48,9 @@ class OKData:
                   "июнь-сентябрь. Период цветения: июнь-август. Место посадки: солнце/полутень."
 
     CALLA_CHAMELEON_PHOTO = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRpNHaRE83Idry9iysh9m3LQ"
-    callaCaptinMorelliPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRokwSgPrsezL9_J6y_vVGQg"
+    CALLA_CAPTIN_MORELLI_PHOTO = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRokwSgPrsezL9_J6y_vVGQg"
     CALLA_AMETIST_PHOTO = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRrHlEJMCSuJh5kk_tzAIpZw"
-    callaCaptinSafariPhoto = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRokwSgPrsezL9_J6y_vVGQg"
+    CALLA_CAPTIN_SAFARI_PHOTO = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRokwSgPrsezL9_J6y_vVGQg"
     CALLA_CAPTIN_VENTURA_PHOTO = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRdD5PjNjorIDtPYCelRtrQg"
     CALLA_VERMEER_PHOTO = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRAo0vbrCRl1q-RnvNbvFdHg"
 
@@ -82,10 +82,11 @@ class Locators:
     PRIVAT_WALL = (By.XPATH, '//div[@id= "hook_Block_UserFeed"]')
     LAST_POST = '//div[@class = "feed-w"]'
     LAST_POST_CONTENT = '//div[@class = "media-text_cnt_tx emoji-tx textWrap"]'
-    lastPostPhoto = '//img[@class = "collage_img"]'
-    postText = '//div[@class = "h-mod photo-layer_descr photo-layer_bottom_block"]//div[@tsid= "TextFieldText"]'
-    allComments = '// span[ @class = "js-text-full"]'
-    allCommentsAuthorNames = '// a[ @class = "comments_author-name o"]'
+    LAST_POST_PHOTO = '//img[@class = "collage_img"]'
+    POST_TEXT = '//div[@class = "h-mod photo-layer_descr photo-layer_bottom_block"]//div[@tsid= "TextFieldText"]'
+    ALL_COMMENTS = '//span[ @class = "js-text-full"]'
+    ALL_COMMENTS_AUTHOR_NAMES = '// a[ @class = "comments_author-name o"]'
+    ADVERSTISING_PAGE = (By.XPATH, '//*[@id="hook_Block_PhotoLayerDescription"]/div/div/div[1]')
 
     #group locators
     GROUP_PAGE = (By.XPATH, '//div[@id= "hook_Block_AltGroupMainMRB"]')
@@ -94,8 +95,8 @@ class Locators:
     TRATATULI_GROUP = (By.XPATH, '//div[@data-group-id= "70000002228915"]')
     TRANSISTORS_GROUP = (By.XPATH, '//div[@data-group-id= "70000001979493"]')
 class Users:
-    sericUserName = "Серик Обуманян"
-    userComment1 = "Вот такие вот гобигули"
-    userComment2 = "Вот такие вот цветочки"
-    userComment3 = "Вот такие вот Трататули"
-    userComment4 = "Вот такие вот транзисторы"
+    SERIC_USER_NAME = "Серик Обуманян"
+    USER_COMMENT_1 = "Вот такие вот гобигули"
+    USER_COMMENT_2 = "Вот такие вот цветочки"
+    USER_COMMENT_3 = "Вот такие вот Трататули"
+    USER_COMMENT_4 = "Вот такие вот транзисторы"

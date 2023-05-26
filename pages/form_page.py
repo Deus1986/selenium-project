@@ -36,3 +36,23 @@ class FormPage(BasePage):
     def click_group_name_in_side_bar(self, group_name):
         name_group_locator = self.element_is_visible(group_name)
         name_group_locator.click()
+
+    def click_last_post_photo(self, page_locator):
+        self.element_are_visible(page_locator)
+        photo_posts = self.driver.find_elements(By.XPATH, Locators.LAST_POST_PHOTO)
+        photo_posts[0].click()
+
+    def verify_last_post_text(self, description, time_now):
+        self.element_is_visible(Locators.ADVERSTISING_PAGE)
+        posts_text = self.driver.find_element(By.XPATH, Locators.POST_TEXT).text
+        print(posts_text)
+        assert posts_text == description + time_now
+
+    def verify_comment_publication(self, comment, time_now):
+        all_comments = self.driver.find_elements(By.XPATH, Locators.ALL_COMMENTS)
+        assert all_comments[0].text == comment + time_now
+
+    def verify_comment_author(self, user_name):
+        all_author_name = self.driver.find_elements(By.XPATH, Locators.ALL_COMMENTS_AUTHOR_NAMES)
+        print(all_author_name[0].text)
+        assert all_author_name[0].text == user_name

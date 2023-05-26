@@ -61,7 +61,7 @@ class TestPostInOwnPublicGroup:
         with allure.step("Нажать на 'группы' в сайд баре"):
             form_page.click_group_in_side_bar(Locators.TOP_SIDE_NAVIGATION_BAR_LOCATORS_WITHOUT_XPATH)
 
-        with allure.step("Нажать на группу 'Цветочки наши цветочки'"):
+        with allure.step("Нажать на группу 'гобигули'"):
             form_page.click_group_name_in_side_bar(Locators.GOBIGULI_GROUP)
 
         with allure.step("Проверить, что пост в собственную публичную группу успешно опубликован"):
