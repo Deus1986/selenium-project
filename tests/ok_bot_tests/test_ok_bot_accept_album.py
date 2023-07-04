@@ -9,7 +9,7 @@ class TestOkBotAcceptAlbum:
     allure.title("Test ok bot accept album")
     allure.severity(severity_level="blocker")
 
-    def test_ok_bot_share(self, driver):
+    def test_ok_bot_accept_album(self, driver):
         with allure.step("Перейти на страницу одноклассников"):
             form_page = FormPage(driver, WebAddresses.OK_LOGIN_PAGE_ADDRESS)
             form_page.openpage()

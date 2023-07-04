@@ -83,6 +83,7 @@ class OkBotLocators:
     BUTTON_MAIN_MENU = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Главное меню"]'
     BUTTON_SHARE = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Поделиться"]'
     BUTTON_PIONS_ON_SPRING = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="ПИОНЫ НА ВЕСНУ 2079"]'
+    BUTTON_NARCISES_ON_SPRING = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="НАРЦИССЫ НА ВЕСНУ 2023"]'
     BUTTON_CLEAR = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Очистить"]'
     BUTTON_SEND = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Отправить"]'
     BUTTON_ACCEPT = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Принять"]'
@@ -101,6 +102,7 @@ class OkBotLocators:
     ACCOUNT_PHOTO_CONTEXT_MENUS_EDIT = '//menu[@class="actions-menu__u3693"]//*[text()= "Редактировать"]'
     ACCOUNT_PHOTO_DELETE_ALBUM = '//div[@class="portlet_controls"]'
     ACCOUNT_PHOTO_DELETE_ALBUM_CONFIRM_BUTTON = '//input[@data-l="t,confirm"]'
+    ACCOUNT_ALBUM_NARCISES = '//a[@class = "title__x4tyv"][text()= "НАРЦИССЫ НА ВЕСНУ 2023"]'
 
 
     # wall

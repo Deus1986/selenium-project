@@ -26,6 +26,10 @@ class FormPage(BasePage):
         element = (By.XPATH, button_locator)
         self.element_is_visible(element).click()
 
+    def verify_page_opened(self, button_locator):
+        element = (By.XPATH, button_locator)
+        self.element_is_visible(element)
+
     def click_element_by_number(self, locator, number):
         element = By.XPATH, locator
         self.element_are_visible(element)
