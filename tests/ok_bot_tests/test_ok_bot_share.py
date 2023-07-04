@@ -37,10 +37,10 @@ class TestOkBotShare:
                 form_page.click_element_by_number(OkBotLocators.TEST_GROUP_MESSAGES, 0)
                 time.sleep(2)
 
-        with allure.step("Нажать на тестовую группу в сообщениях"):
-            form_page.click_element_by_number(OkBotLocators.TEST_GROUP_MESSAGES, 0)
-            form_page.driver.refresh()
-            time.sleep(2)
+        # with allure.step("Нажать на тестовую группу в сообщениях"):
+        #     form_page.click_element_by_number(OkBotLocators.TEST_GROUP_MESSAGES, 0)
+        #     form_page.driver.refresh()
+        #     time.sleep(2)
 
         with allure.step("Нажать альбомы в сообщениях"):
             if form_page.check_exists_by_xpath(OkBotLocators.BUTTON_MAIN_MENU):

@@ -82,15 +82,27 @@ class OkBotLocators:
     SCROLL_LAST_ELEMENT_BUTTON = '//msg-button[@data-l= "t,scrollToBottom"]'
     BUTTON_MAIN_MENU = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Главное меню"]'
     BUTTON_SHARE = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Поделиться"]'
-    BUTTON_PIONS_ON_SPRING = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="ПИОНЫ НА ВЕСНУ 2023"]'
+    BUTTON_PIONS_ON_SPRING = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="ПИОНЫ НА ВЕСНУ 2079"]'
     BUTTON_CLEAR = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Очистить"]'
     BUTTON_SEND = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Отправить"]'
+    BUTTON_ACCEPT = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Принять"]'
+    BUTTON_DJORDJ_KIM_ACCOUNT = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="джордж ким:584397600334"]'
     URL_ELEMENTS = '//a[@class= "link-okmsg url-okmsg"]'
-
-    # TOP_SIDE_NAVIGATION_BAR_LOCATORS_WITHOUT_XPATH = '//div[@class = "nav-side_i-w"]'
+    BUTTON_CLOSE_MESSAGES_FORM = '//div[@class= "toolbar-layer_controls_item js-close-layer"]'
 
     # test group locators
-    PION_ALBUMS_NAME = '//a[@title= "ПИОНЫ НА ВЕСНУ 2023"]'
+    BUTTON_ALL_ALBUMS = '//div[@class= "portlet group-new-photos-rb"]//div[@class= "portlet_h_inf"]'
+    BUTTON_PHOTOS_IN_TOP_MENU_SIDE_BAR = '//a[@class= "mctc_navMenuSec ellip-menu-item "]'
+    PION_ALBUMS_NAME = '//a[@title= "ПИОНЫ НА ВЕСНУ 2079"]'
+    BUTTON_SEE_MORE = '//button[@class= "button-clean__0wfyv loader-btn__85lk6"]'
+
+    # account locators
+    ACCOUNT_PHOTO_CONTEXT_MENUS = '//div[@class= "actions-menu-wrapper__u3693"]'
+    ACCOUNT_PHOTO_CONTEXT_MENUS_EDIT = '//menu[@class="actions-menu__u3693"]//*[text()= "Редактировать"]'
+    ACCOUNT_PHOTO_DELETE_ALBUM = '//div[@class="portlet_controls"]'
+    ACCOUNT_PHOTO_DELETE_ALBUM_CONFIRM_BUTTON = '//input[@data-l="t,confirm"]'
+
+
     # wall
     PRIVAT_WALL = (By.XPATH, '//div[@id= "hook_Block_UserFeed"]')
     LAST_POST = '//div[@class = "feed-w"]'
@@ -102,11 +114,7 @@ class OkBotLocators:
     ADVERSTISING_PAGE = (By.XPATH, '//*[@id="hook_Block_PhotoLayerDescription"]/div/div/div[1]')
 
     # group locators
-    GROUP_PAGE = (By.XPATH, '//div[@id= "hook_Block_AltGroupMainMRB"]')
-    GOBIGULI_GROUP = (By.XPATH, '//div[@data-group-id= "70000002213582"]')
-    FLOWERS_OUR_FLOWERS_GROUP = (By.XPATH, '//div[@data-group-id= "70000002189774"]')
-    TRATATULI_GROUP = (By.XPATH, '//div[@data-group-id= "70000002228915"]')
-    TRANSISTORS_GROUP = (By.XPATH, '//div[@data-group-id= "70000001979493"]')
+    TEST_GROUP = (By.XPATH, '//div[@data-group-id= "70000000729023"]')
 # class Users:
 #     SERIC_USER_NAME = "Серик Обуманян"
 #     USER_COMMENT_1 = "Вот такие вот гобигули"
