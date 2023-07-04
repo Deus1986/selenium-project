@@ -1,18 +1,18 @@
 import time
 import requests
 import allure
-from BotTests.variablesForTests.variables_for_posts import RequestsVariables as RequestsVariables, Users
-from BotTests.variablesForTests.variables_for_posts import OKData as OKData
-from BotTests.variablesForTests.variables_for_posts import WebAddresses as WebAddresses
-from BotTests.variablesForTests.variables_for_posts import Locators as Locators
+from pages.variables_for_posts import RequestsVariables as RequestsVariables, Users
+from pages.variables_for_posts import OKData as OKData
+from pages.variables_for_posts import WebAddresses as WebAddresses
+from pages.variables_for_posts import Locators as Locators
 from pages.form_page import FormPage
 
 
-class TestAdverstisingInOwnPublicGroup:
+class TestAdverstisingInOwnPrivateGroup:
     allure.title("Adverstising_in_own_private_group")
     allure.severity(severity_level="blocker")
 
-    def test_adverstising_in_own_public_group(self, driver):
+    def test_adverstising_in_own_private_group(self, driver):
         with allure.step("Выполнить запрос login для получения токена авторизации"):
             response = requests.get(RequestsVariables.BASE_URL + "/api/Employee/login/" + RequestsVariables.PASSWORD)
             assert response.status_code == 200
@@ -22,12 +22,12 @@ class TestAdverstisingInOwnPublicGroup:
         headers = {"Authorization": "Bearer " + authorization_token}
         time_now = str(time.time())
         user_name = Users.SERIC_USER_NAME
-        comment = Users.USER_COMMENT_2
+        comment = Users.USER_COMMENT_1
         description = OKData.CALLA_CAPTIN_MORELLI_DESCRIPTION
         body = {
             "accountId": OKData.USER_ID,
             "groupIds": [
-                OKData.GROUP_FLOWERS_OUR_FLOWERS_ID
+                OKData.GROUP_GOBIGULI_ID
             ],
             "photos": [
                 {
@@ -49,7 +49,7 @@ class TestAdverstisingInOwnPublicGroup:
             form_page.openpage()
 
         with allure.step("Ввести логин"):
-            form_page.enter_login()
+            form_page.enter_seric_login()
 
         with allure.step("Ввести пароль"):
             form_page.enter_password()
@@ -60,8 +60,8 @@ class TestAdverstisingInOwnPublicGroup:
         with allure.step("Нажать на 'группы' в сайд баре"):
             form_page.click_group_in_side_bar(Locators.TOP_SIDE_NAVIGATION_BAR_LOCATORS_WITHOUT_XPATH)
 
-        with allure.step("Нажать на группу 'Цветочки наши цветочки'"):
-            form_page.click_group_name_in_side_bar(Locators.FLOWERS_OUR_FLOWERS_GROUP)
+        with allure.step("Нажать на группу 'Гобигули'"):
+            form_page.click_group_name_in_side_bar(Locators.GOBIGULI_GROUP)
 
         with allure.step("Нажать на фото последнего поста"):
             form_page.click_last_post_photo(Locators.GROUP_PAGE)

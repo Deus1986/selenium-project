@@ -1,10 +1,10 @@
 import time
 import requests
 import allure
-from BotTests.variablesForTests.variables_for_posts import RequestsVariables as RequestsVariables
-from BotTests.variablesForTests.variables_for_posts import OKData as OKData
-from BotTests.variablesForTests.variables_for_posts import WebAddresses as WebAddresses
-from BotTests.variablesForTests.variables_for_posts import Locators as Locators
+from pages.variables_for_posts import RequestsVariables as RequestsVariables
+from pages.variables_for_posts import OKData as OKData
+from pages.variables_for_posts import WebAddresses as WebAddresses
+from pages.variables_for_posts import Locators as Locators
 from pages.form_page import FormPage
 
 
@@ -50,7 +50,7 @@ class TestPostInOwnPublicGroup:
             form_page.openpage()
 
         with allure.step("Ввести логин"):
-            form_page.enter_login()
+            form_page.enter_seric_login()
 
         with allure.step("Ввести пароль"):
             form_page.enter_password()
