@@ -78,6 +78,6 @@ class TestOkBotShare:
         with allure.step("Нажать отправить"):
             elements_len = form_page.get_len(OkBotLocators.URL_ELEMENTS)
             form_page.click_message_button(OkBotLocators.BUTTON_SEND)
-            time.sleep(20)
+            time.sleep(30)
             elements_len_after = form_page.get_len(OkBotLocators.URL_ELEMENTS)
             assert (elements_len_after - elements_len) == 5

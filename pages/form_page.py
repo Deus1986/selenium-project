@@ -69,6 +69,7 @@ class FormPage(BasePage):
 
     def verify_comment_publication(self, comment, time_now):
         all_comments = self.driver.find_elements(By.XPATH, Locators.ALL_COMMENTS)
+        print(all_comments[0].text)
         assert all_comments[0].text == comment + time_now
 
     def verify_comment_author(self, user_name):

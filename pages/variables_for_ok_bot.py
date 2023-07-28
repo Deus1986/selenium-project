@@ -83,13 +83,16 @@ class OkBotLocators:
     BUTTON_MAIN_MENU = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Главное меню"]'
     BUTTON_SHARE = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Поделиться"]'
     BUTTON_PIONS_ON_SPRING = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="ПИОНЫ НА ВЕСНУ 2079"]'
-    BUTTON_NARCISES_ON_SPRING = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="НАРЦИССЫ НА ВЕСНУ 2023"]'
+    BUTTON_NARCISES_ON_SPRING = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Рододендроны Весна 2023"]'
     BUTTON_CLEAR = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Очистить"]'
     BUTTON_SEND = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Отправить"]'
+    BUTTON_SEND_IN_ACCOUNT_GROUP = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Отправить в группу пользователя"]'
     BUTTON_ACCEPT = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Принять"]'
     BUTTON_DJORDJ_KIM_ACCOUNT = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="джордж ким:584397600334"]'
+    BUTTON_DJORDJ_KIM_ACCOUNT_GROUP = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="джордж ким"]'
     URL_ELEMENTS = '//a[@class= "link-okmsg url-okmsg"]'
     BUTTON_CLOSE_MESSAGES_FORM = '//div[@class= "toolbar-layer_controls_item js-close-layer"]'
+    UCHKUDUK_GROUP_LOCATOR = '//div[@class= "group-okmsg"]//msg-parsed-text//span[text()="Учкудук"]'
 
     # test group locators
     BUTTON_ALL_ALBUMS = '//div[@class= "portlet group-new-photos-rb"]//div[@class= "portlet_h_inf"]'
@@ -102,7 +105,7 @@ class OkBotLocators:
     ACCOUNT_PHOTO_CONTEXT_MENUS_EDIT = '//menu[@class="actions-menu__u3693"]//*[text()= "Редактировать"]'
     ACCOUNT_PHOTO_DELETE_ALBUM = '//div[@class="portlet_controls"]'
     ACCOUNT_PHOTO_DELETE_ALBUM_CONFIRM_BUTTON = '//input[@data-l="t,confirm"]'
-    ACCOUNT_ALBUM_NARCISES = '//a[@class = "title__x4tyv"][text()= "НАРЦИССЫ НА ВЕСНУ 2023"]'
+    ACCOUNT_ALBUM_NARCISES = '//a[@class = "title__x4tyv"][text()= "Рододендроны Весна 2023"]'
 
 
     # wall
@@ -117,6 +120,9 @@ class OkBotLocators:
 
     # group locators
     TEST_GROUP = (By.XPATH, '//div[@data-group-id= "70000000729023"]')
+    UCHKUDUK_GROUP = (By.XPATH, '//div[@data-group-id= "70000002966862"]')
+    GROUP_TOP_SIDE_BAR = '//a[@class = "mctc_navMenuSec ellip-menu-item "]'
+    DELETE_BUTTON_ACCOUNT_GROUP = '//a[@data-l="t,remove-album"]'
 # class Users:
 #     SERIC_USER_NAME = "Серик Обуманян"
 #     USER_COMMENT_1 = "Вот такие вот гобигули"
