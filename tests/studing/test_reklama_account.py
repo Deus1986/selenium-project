@@ -18,7 +18,9 @@ class TestReklama:
 
     def test_Reklama(self, driver):
         def wait_post(time_post, user_id):
-            smiles = {1: "🐰", 2: "🌹", 3: "🌷", 4: "🌺", 5: "❤", 6: "😃",}
+            smiles = {1: "🐰", 2: "🌹", 3: "🌷", 4: "🌺", 5: "❤", 6: "😃", 7: "☀️", 8: "⭐", 9: "😋",
+                      10: "🙉", 11: "😻", 12: "😸", 13: "❤️", 14: "😺", 15: "😍", 16: "🙂", 17: "🐶",
+                      18: "🍃", 19: "✨", 20: "🔥"}
             response = requests.get(
                 RequestsVariables.BASE_URL_2 + "/api/Employee/login/" + RequestsVariables.PASSWORD_PROD_2)
             assert response.status_code == 200
@@ -68,7 +70,10 @@ class TestReklama:
                     "post": {
                         "description": response_product_info_json["name"] + " Цена: " +
                                        str(response_product_info_json["productPrices"][0]["price"]) +
-                                       f' {response_product_info_json["images"][0]["description"]}',
+                                       f' {response_product_info_json["images"][0]["description"]}' +
+                                       smiles[random.randint(1, len(smiles))] +
+                                       smiles[random.randint(1, len(smiles))] +
+                                       smiles[random.randint(1, len(smiles))],
 
                         "photos": [
                             response_product_info_json["images"][0]["url"]
@@ -90,25 +95,18 @@ class TestReklama:
             print(body)
             # print(post_wall.url)
 
+        #user ZOYA
+        # user_id = "599137408266"
+        #user Irina
+        # user_id = "590897640384"
+        # user Elena
+        # user_id = "590114919871"
+
         month = "09"
-        day = 6
-        wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T23:00:00.767Z", "589219845582")
-        # print(emoji.demojize("🐰"))
-        # print('\U00002668')
-        # print(":thumbs_up:")
-
-        # print(emoji.emojize(":red_heart:"))
-
-        print(emoji.emojize('Python is :thumbsup:', language='alias'))
-
-
-        # print('&#243;')
-        # print("👍")
-        # with open('test.htm', 'w', encoding='utf-8-sig') as f:
-        #     f.write('\U0001f44d')
-        # os.startfile('test.htm')
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T03:00:00.767Z", "589219845582")
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T07:00:00.767Z", "589219845582")
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T11:00:00.767Z", "589219845582")
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T15:00:00.767Z", "589219845582")
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T19:00:00.767Z", "589219845582")
+        day = 7
+        wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T23:00:00.767Z", user_id)
+        wait_post("2023-" + f"{month}-" + f"0{day}" + "T03:00:00.767Z", user_id)
+        wait_post("2023-" + f"{month}-" + f"0{day}" + "T07:00:00.767Z", user_id)
+        wait_post("2023-" + f"{month}-" + f"0{day}" + "T11:00:00.767Z", user_id)
+        wait_post("2023-" + f"{month}-" + f"0{day}" + "T15:00:00.767Z", user_id)
+        wait_post("2023-" + f"{month}-" + f"0{day}" + "T19:00:00.767Z", user_id)
