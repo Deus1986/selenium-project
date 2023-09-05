@@ -13,6 +13,7 @@ class TestAdverstisingInOwnPublicGroup:
     allure.severity(severity_level="blocker")
 
     def test_adverstising_in_own_public_group(self, driver):
+        driver.implicitly_wait(10)
         with allure.step("Выполнить запрос login для получения токена авторизации"):
             response = requests.get(RequestsVariables.BASE_URL + "/api/Employee/login/" + RequestsVariables.PASSWORD)
             assert response.status_code == 200

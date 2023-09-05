@@ -10,6 +10,7 @@ class TestOkBotAcceptAlbum:
     allure.severity(severity_level="blocker")
 
     def test_ok_bot_accept_album(self, driver):
+        driver.implicitly_wait(10)
         with allure.step("Перейти на страницу одноклассников"):
             form_page = FormPage(driver, WebAddresses.OK_LOGIN_PAGE_ADDRESS)
             form_page.openpage()
@@ -44,6 +45,7 @@ class TestOkBotAcceptAlbum:
 
         with allure.step("Нажать на сообщения в хедере страницы"):
             form_page.click_element_by_number(OkBotLocators.HEADER_LINKS, 0)
+            time.sleep(10)
 
         with allure.step("Нажать на тестовую группу в сообщениях"):
             time.sleep(2)

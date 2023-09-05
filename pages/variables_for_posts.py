@@ -3,7 +3,9 @@ from selenium.webdriver.common.by import By
 
 class RequestsVariables:
     BASE_URL = "http://10.243.8.118:31405"
+    BASE_URL_2 = "http://192.168.193.1:31400"
     PASSWORD = "Gfhjkm"
+    PASSWORD_PROD_2 = "Monik@2015"
 
 class OKData:
 

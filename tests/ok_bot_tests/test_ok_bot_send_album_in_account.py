@@ -10,6 +10,7 @@ class TestOkBotSendAlbumInAccount:
     allure.severity(severity_level="blocker")
 
     def test_ok_bot_send_album_in_account(self, driver):
+        driver.implicitly_wait(5)
         with allure.step("Перейти на страницу одноклассников"):
             form_page = FormPage(driver, WebAddresses.OK_LOGIN_PAGE_ADDRESS)
             form_page.openpage()
@@ -35,7 +36,7 @@ class TestOkBotSendAlbumInAccount:
 
         with allure.step("Проверить есть ли альбом 'Нарциссы на весну 2023' и удалить при наличии"):
             if form_page.check_exists_by_xpath(OkBotLocators.ACCOUNT_ALBUM_NARCISES):
-                form_page.click_element_by_number(OkBotLocators.ACCOUNT_PHOTO_CONTEXT_MENUS, 0)
+                form_page.click_button(OkBotLocators.ACCOUNT_ALBUM_NARCISES)
                 form_page.click_button(OkBotLocators.ACCOUNT_PHOTO_CONTEXT_MENUS_EDIT)
                 form_page.click_button(OkBotLocators.DELETE_BUTTON_ACCOUNT_GROUP)
                 form_page.click_button(OkBotLocators.ACCOUNT_PHOTO_DELETE_ALBUM_CONFIRM_BUTTON)
@@ -91,8 +92,12 @@ class TestOkBotSendAlbumInAccount:
 
         with allure.step("Закрыть окно сообщений"):
             form_page.click_message_button(OkBotLocators.BUTTON_CLOSE_MESSAGES_FORM)
-            form_page.driver.refresh()
-            time.sleep(2)
+            form_page.click_group_in_side_bar(Locators.TOP_SIDE_NAVIGATION_BAR_LOCATORS_WITHOUT_XPATH)
+            form_page.click_group_name_in_side_bar(OkBotLocators.UCHKUDUK_GROUP)
+            form_page.click_element_by_number(OkBotLocators.GROUP_TOP_SIDE_BAR, 3)
+            form_page.verify_page_opened(OkBotLocators.ACCOUNT_PHOTO_CONTEXT_MENUS)
+            # form_page.driver.refresh()
+            # time.sleep(2)
 
         with allure.step("Проверить кол-во добавленных альбомов"):
             length = form_page.get_len(OkBotLocators.ACCOUNT_ALBUM_NARCISES)
@@ -103,7 +108,7 @@ class TestOkBotSendAlbumInAccount:
             assert result == True
 
         with allure.step("Удалить добавленный альбом"):
-            form_page.click_element_by_number(OkBotLocators.ACCOUNT_PHOTO_CONTEXT_MENUS, 0)
+            form_page.click_button(OkBotLocators.ACCOUNT_ALBUM_NARCISES)
             form_page.click_button(OkBotLocators.ACCOUNT_PHOTO_CONTEXT_MENUS_EDIT)
             form_page.click_button(OkBotLocators.DELETE_BUTTON_ACCOUNT_GROUP)
             form_page.click_button(OkBotLocators.ACCOUNT_PHOTO_DELETE_ALBUM_CONFIRM_BUTTON)

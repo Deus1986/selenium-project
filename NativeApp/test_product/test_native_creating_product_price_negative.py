@@ -1,53 +1,142 @@
 import pywinauto
+import pyautogui as pag
 from pywinauto.application import Application
 from pywinauto.keyboard import send_keys
 from pywinauto import keyboard as kb
 import time
+import allure
 
 
-def test_native_app():
+def test_native_creating_product_price_negative():
     app = Application(backend="uia").start('C://Users//user//Documents//FlowersBotBuildDev//FlowersCRM.exe')
     time.sleep(2)
 
     dlg_spec = app.window(title='Авторизация')
     dlg_spec_2 = app.window(title='Короткий пароль')
     dlg_spec_3 = app.window(title='FlowersBot')
-    # dlg_spec_4 = app.window(title='Untitled')
+    dlg_spec_4 = app.window(title='PriceWindow')
+    dlg_spec_5 = app.window(title='Выбор альбомов')
 
     # dlg_spec.print_control_identifiers()
     # dlg_spec_4.print_control_identifiers()
     # dlg_spec_2.print_control_identifiers()
 
-    if dlg_spec.exists():
-        dlg_spec.wait('visible'), dlg_spec.child_window(auto_id="passwordBox").set_text("Gfhjkm"), \
-        dlg_spec.OKButton.click(), dlg_spec_2.wait('visible'), \
-        dlg_spec_2.child_window(auto_id="passwordBox").set_text('1234'), dlg_spec_2.OKButton.click()
+    with allure.step("Ввести пароль для входа в приложение"):
+        if dlg_spec.exists():
+            dlg_spec.wait('visible'), dlg_spec.child_window(auto_id="passwordBox").set_text("Gfhjkm"), \
+            dlg_spec.OKButton.click(), dlg_spec_2.wait('visible'), \
+            dlg_spec_2.child_window(auto_id="passwordBox").set_text('1234'), dlg_spec_2.OKButton.click()
 
-    else:
-        dlg_spec_2.wait('visible'), dlg_spec_2.child_window(auto_id="passwordBox").set_text('1234'), \
-        dlg_spec_2.OKButton.click()
+        else:
+            dlg_spec_2.wait('visible'), dlg_spec_2.child_window(auto_id="passwordBox").set_text('1234'), \
+            dlg_spec_2.OKButton.click()
 
-    dlg_spec_3.wait('visible')
-    send_keys('{VK_TAB}')
-    time.sleep(0.5)
-    send_keys('{VK_TAB}')
-    dlg_spec_3.child_window(title="Товары", control_type="Button").click()
-    time.sleep(2)
-    send_keys('{DOWN}')
-    send_keys('{DOWN}')
-    send_keys('{RIGHT}')
-    send_keys('{RIGHT}')
-    time.sleep(1)
+    with allure.step("Нажать товары"):
+        dlg_spec_3.wait('visible')
+        time.sleep(2)
+        dlg_spec_3.Static2.click_input()
+        dlg_spec_3.Static3.click_input()
+
+    with allure.step("Выбрать товары абеме"):
+        dlg_spec_3.АбемеListItem.click_input()
+
+    with allure.step("Нажать создать товар"):
+        dlg_spec_3.child_window(title="Создать товар", auto_id="CreateProduct", control_type="Button").click_input()
+
+    with allure.step("Ввести имя товара Барабулька"):
+        dlg_spec_3.Edit.set_edit_text("Барабулька")
+
+    with allure.step("Открыть окно редактирования цены, ввести наименование товара и установить одинаковую цену "
+                     "закупки и себестоимость"):
+        dlg_spec_3.Static262.click_input()
+        dlg_spec_4.НазваниеEdit.set_edit_text("Барабулька хвостатая")
+        dlg_spec_4.ЦенаEdit.set_edit_text("1")
+        dlg_spec_4.СебестоимостьEdit.set_edit_text("1")
+        dlg_spec_4.OKButton.click()
+
+    with allure.step("Добавить альбом и нажаьб сохранить товар"):
+        # dlg_spec_3.ЦеныCustom2.click_input()
+        dlg_spec_3.ИзменитьButton.click()
+        dlg_spec_5.Static2.click_input()
+        dlg_spec_5.Принять2.click_input()
+        dlg_spec_3.СохранитьButton.click()
+        dlg_spec_3.OKButton.wait("visible")
+        dlg_spec_3.OKButton.click()
+
+    with allure.step("Изменить цену на товар, себестоимость выше цены продажи и нажать сохранить товар"):
+        # print(pag.position())
+        # pag.moveTo(950, 250)
+        pag.leftClick(950, 250)
+        dlg_spec_4.ЦенаEdit.set_edit_text("1")
+        dlg_spec_4.СебестоимостьEdit.set_edit_text("2")
+        dlg_spec_4.OKButton.click()
+        dlg_spec_3.СохранитьButton.click()
+        dlg_spec_3.OKButton.wait("visible")
+        dlg_spec_3.OKButton.click()
+
+    with allure.step("Изменить цену на товар, в себестоимость ввести текст и нажать сохранить товар"):
+        pag.leftClick(950, 250)
+        dlg_spec_4.ЦенаEdit.set_edit_text("1")
+        dlg_spec_4.СебестоимостьEdit.set_edit_text("fdss")
+        dlg_spec_4.OKButton.click()
+        dlg_spec_3.СохранитьButton.click()
+        dlg_spec_3.OKButton.wait("visible")
+        dlg_spec_3.OKButton.click()
+
+    with allure.step("Изменить цену на товар, в цену продажи ввести текст, в себестоимость валидное значение и нажать "
+                     "сохранить товар"):
+        pag.leftClick(950, 250)
+        dlg_spec_4.ЦенаEdit.set_edit_text("fdss")
+        dlg_spec_4.СебестоимостьEdit.set_edit_text("1")
+        dlg_spec_4.OKButton.click()
+        dlg_spec_3.СохранитьButton.click()
+        dlg_spec_3.OKButton.wait("visible")
+        dlg_spec_3.OKButton.click()
+
+    with allure.step("Изменить цену на товар, в себестоимость ввести отрицательное значение и нажать сохранить товар"):
+        pag.leftClick(950, 250)
+        dlg_spec_4.ЦенаEdit.set_edit_text("3")
+        dlg_spec_4.СебестоимостьEdit.set_edit_text("-1")
+        dlg_spec_4.OKButton.click()
+        dlg_spec_3.СохранитьButton.click()
+        dlg_spec_3.OKButton.wait("visible")
+        dlg_spec_3.OKButton.click()
+
+    with allure.step("Изменить цену на товар, в цена продажи ввести отрицательное значение и нажать сохранить товар"):
+        pag.leftClick(950, 250)
+        dlg_spec_4.ЦенаEdit.set_edit_text("-1")
+        dlg_spec_4.СебестоимостьEdit.set_edit_text("3")
+        dlg_spec_4.OKButton.click()
+        dlg_spec_3.СохранитьButton.click()
+        dlg_spec_3.OKButton.wait("visible")
+        dlg_spec_3.OKButton.click()
+
+    with allure.step("Изменить цену на товар, в цена продажи и себестоимость ввести спецсимволы и нажать сохранить "
+                     "товар"):
+        pag.leftClick(950, 250)
+        dlg_spec_4.ЦенаEdit.set_edit_text("!№;%:::?")
+        dlg_spec_4.СебестоимостьEdit.set_edit_text("!№;%:::?")
+        dlg_spec_4.OKButton.click()
+        dlg_spec_3.СохранитьButton.click()
+        dlg_spec_3.OKButton.wait("visible")
+        dlg_spec_3.OKButton.click()
+    # dlg_spec_3.print_control_identifiers()
+
+    # time.sleep(8)
+
+
+    # time.sleep(10)
     # send_keys('{DOWN}')
-    dlg_spec_3.child_window(auto_id="Name", control_type="Edit").set_text("Gfhjkm")
-    dlg_spec_3.child_window(auto_id="Price", control_type="Edit").set_text("12")
-    dlg_spec_3.child_window(auto_id="CostPrice", control_type="Edit").set_text("65")
-    dlg_spec_3.child_window(title="Создать", auto_id="CreateButton", control_type="Button").click()
-    dlg_spec_3.ОКButton.click()
+    # dlg_spec_3.child_window(auto_id="Name", control_type="Edit").set_text("Gfhjkm")
+    # dlg_spec_3.child_window(auto_id="Price", control_type="Edit").set_text("12")
+    # dlg_spec_3.child_window(auto_id="CostPrice", control_type="Edit").set_text("65")
+    # dlg_spec_3.child_window(title="Создать", auto_id="CreateButton", control_type="Button").click()
+    # dlg_spec_3.ОКButton.click()
 
 
-    time.sleep(2)
+    # time.sleep(2)
 
+    # dlg_spec_3.print_control_identifiers()
     # dlg_spec_4.print_control_identifiers()
     # app.Untitled.print_control_identifiers()
 

@@ -10,6 +10,7 @@ class TestOkBotSendAccountGroup:
     allure.severity(severity_level="blocker")
 
     def test_ok_bot_send_album_in_account(self, driver):
+        driver.implicitly_wait(10)
         with allure.step("Перейти на страницу одноклассников"):
             form_page = FormPage(driver, WebAddresses.OK_LOGIN_PAGE_ADDRESS)
             form_page.openpage()
@@ -29,9 +30,9 @@ class TestOkBotSendAccountGroup:
 
         with allure.step("Проверить есть ли альбом 'Нарциссы на весну 2023' и удалить при наличии"):
             if form_page.check_exists_by_xpath(OkBotLocators.ACCOUNT_ALBUM_NARCISES):
-                form_page.click_element_by_number(OkBotLocators.ACCOUNT_PHOTO_CONTEXT_MENUS, 1)
+                form_page.click_button(OkBotLocators.ACCOUNT_ALBUM_NARCISES)
                 form_page.click_button(OkBotLocators.ACCOUNT_PHOTO_CONTEXT_MENUS_EDIT)
-                form_page.click_button(OkBotLocators.ACCOUNT_PHOTO_DELETE_ALBUM)
+                form_page.click_button(OkBotLocators.DELETE_BUTTON_ACCOUNT_GROUP_2)
                 form_page.click_button(OkBotLocators.ACCOUNT_PHOTO_DELETE_ALBUM_CONFIRM_BUTTON)
 
         with allure.step("Нажать на сообщения в хедере страницы"):
@@ -87,7 +88,7 @@ class TestOkBotSendAccountGroup:
             assert result == True
 
         with allure.step("Удалить добавленный альбом"):
-            form_page.click_element_by_number(OkBotLocators.ACCOUNT_PHOTO_CONTEXT_MENUS, 1)
+            form_page.click_button(OkBotLocators.ACCOUNT_ALBUM_NARCISES)
             form_page.click_button(OkBotLocators.ACCOUNT_PHOTO_CONTEXT_MENUS_EDIT)
-            form_page.click_button(OkBotLocators.ACCOUNT_PHOTO_DELETE_ALBUM)
+            form_page.click_button(OkBotLocators.DELETE_BUTTON_ACCOUNT_GROUP_2)
             form_page.click_button(OkBotLocators.ACCOUNT_PHOTO_DELETE_ALBUM_CONFIRM_BUTTON)

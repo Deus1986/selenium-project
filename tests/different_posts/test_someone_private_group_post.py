@@ -13,6 +13,7 @@ class TestPostInSomeonePrivateGroup:
     allure.severity(severity_level="blocker")
 
     def test_own_public_group_post(self, driver):
+        driver.implicitly_wait(10)
         with allure.step("Выполнить запрос login для получения токена авторизации"):
             response = requests.get(RequestsVariables.BASE_URL + "/api/Employee/login/" + RequestsVariables.PASSWORD)
             assert response.status_code == 200

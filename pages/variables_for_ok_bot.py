@@ -70,7 +70,7 @@ class OKBotData:
 #
 class OkBotLocators:
     # header
-    HEADER_LINKS = '//div[@class= "toolbar_nav_i_ic"]'
+    HEADER_LINKS = '//span[@class= "toolbar_nav_i_ic"]'
     # PASSWORD_FIELD = (By.XPATH, '//input[@id = "field_password"]')
     # ENTER_OK_BUTTON = (By.XPATH, '//input[@value= "Войти в Одноклассники"]')
 
@@ -101,8 +101,9 @@ class OkBotLocators:
     BUTTON_SEE_MORE = '//button[@class= "button-clean__0wfyv loader-btn__85lk6"]'
 
     # account locators
-    ACCOUNT_PHOTO_CONTEXT_MENUS = '//div[@class= "actions-menu-wrapper__u3693"]'
-    ACCOUNT_PHOTO_CONTEXT_MENUS_EDIT = '//menu[@class="actions-menu__u3693"]//*[text()= "Редактировать"]'
+    ACCOUNT_PHOTO_CONTEXT_MENUS = '//div[@class= "action-btn__u3693"]'
+    ACCOUNT_PHOTO_ALBUM_RODENDRON = '//li[@class= "groups-albums-stream_i__khpmo"]'
+    ACCOUNT_PHOTO_CONTEXT_MENUS_EDIT = '//a[@data-l="t,editAlbum"][text()= "Редактировать"]'
     ACCOUNT_PHOTO_DELETE_ALBUM = '//div[@class="portlet_controls"]'
     ACCOUNT_PHOTO_DELETE_ALBUM_CONFIRM_BUTTON = '//input[@data-l="t,confirm"]'
     ACCOUNT_ALBUM_NARCISES = '//a[@class = "title__x4tyv"][text()= "Рододендроны Весна 2023"]'
@@ -123,6 +124,7 @@ class OkBotLocators:
     UCHKUDUK_GROUP = (By.XPATH, '//div[@data-group-id= "70000002966862"]')
     GROUP_TOP_SIDE_BAR = '//a[@class = "mctc_navMenuSec ellip-menu-item "]'
     DELETE_BUTTON_ACCOUNT_GROUP = '//a[@data-l="t,remove-album"]'
+    DELETE_BUTTON_ACCOUNT_GROUP_2 = '//a[@data-l="t,.r"]'
 # class Users:
 #     SERIC_USER_NAME = "Серик Обуманян"
 #     USER_COMMENT_1 = "Вот такие вот гобигули"

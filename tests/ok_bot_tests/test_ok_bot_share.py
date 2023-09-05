@@ -10,6 +10,7 @@ class TestOkBotShare:
     allure.severity(severity_level="blocker")
 
     def test_ok_bot_share(self, driver):
+        driver.implicitly_wait(10)
         with allure.step("Перейти на страницу одноклассников"):
             form_page = FormPage(driver, WebAddresses.OK_LOGIN_PAGE_ADDRESS)
             form_page.openpage()

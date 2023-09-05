@@ -31,7 +31,7 @@ class FormPage(BasePage):
         self.element_is_visible(element)
 
     def click_element_by_number(self, locator, number):
-        element = By.XPATH, locator
+        element = (By.XPATH, locator)
         self.element_are_visible(element)
         elements = self.driver.find_elements(By.XPATH, locator)
         elements[number].click()
