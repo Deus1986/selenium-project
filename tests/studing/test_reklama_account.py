@@ -1,15 +1,9 @@
-import os
 import random
-import emoji
 import requests
 import allure
-from emoji import EMOJI_DATA
 
 from pages.variables_for_posts import RequestsVariables as RequestsVariables, Users
-from pages.variables_for_posts import OKData as OKData
-from pages.variables_for_posts import WebAddresses as WebAddresses
-from pages.variables_for_posts import Locators as Locators
-from pages.form_page import FormPage
+
 
 
 class TestReklama:
@@ -97,30 +91,43 @@ class TestReklama:
 
         #user ZOYA
         user_id_zoya = "599137408266"
+
         #user Irina
         user_id_irina = "590897640384"
+
         # user Elena
         user_id_elena = "590114919871"
 
+        # user Ekaterina
+        user_id_ekaterina = "584498530677"
+
         month = "09"
-        day = 9
-        wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T23:00:00.767Z", user_id_zoya)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T03:00:00.767Z", user_id_zoya)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T07:00:00.767Z", user_id_zoya)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T11:00:00.767Z", user_id_zoya)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T15:00:00.767Z", user_id_zoya)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T19:00:00.767Z", user_id_zoya)
+        day = 15
 
-        wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T23:00:00.767Z", user_id_irina)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T03:00:00.767Z", user_id_irina)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T07:00:00.767Z", user_id_irina)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T11:00:00.767Z", user_id_irina)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T15:00:00.767Z", user_id_irina)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T19:00:00.767Z", user_id_irina)
+        wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T23:00:00.767Z", user_id_zoya)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T03:00:00.767Z", user_id_zoya)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T07:00:00.767Z", user_id_zoya)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T11:00:00.767Z", user_id_zoya)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T15:00:00.767Z", user_id_zoya)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T19:00:00.767Z", user_id_zoya)
 
-        wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T23:00:00.767Z", user_id_elena)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T03:00:00.767Z", user_id_elena)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T07:00:00.767Z", user_id_elena)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T11:00:00.767Z", user_id_elena)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T15:00:00.767Z", user_id_elena)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T19:00:00.767Z", user_id_elena)
+        wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T23:00:00.767Z", user_id_irina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T03:00:00.767Z", user_id_irina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T07:00:00.767Z", user_id_irina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T11:00:00.767Z", user_id_irina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T15:00:00.767Z", user_id_irina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T19:00:00.767Z", user_id_irina)
+
+        wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T23:00:00.767Z", user_id_elena)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T03:00:00.767Z", user_id_elena)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T07:00:00.767Z", user_id_elena)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T11:00:00.767Z", user_id_elena)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T15:00:00.767Z", user_id_elena)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T19:00:00.767Z", user_id_elena)
+
+        wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T23:00:00.767Z", user_id_ekaterina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T03:00:00.767Z", user_id_ekaterina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T07:00:00.767Z", user_id_ekaterina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T11:00:00.767Z", user_id_ekaterina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T15:00:00.767Z", user_id_ekaterina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T19:00:00.767Z", user_id_ekaterina)
