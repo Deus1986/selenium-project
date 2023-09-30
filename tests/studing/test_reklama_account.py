@@ -96,7 +96,7 @@ class TestReklama:
         user_id_irina = "590897640384"
 
         # user Elena
-        user_id_elena = "590114919871"
+        user_id_elena = "597571355159"
 
         # user Ekaterina
         user_id_ekaterina = "584498530677"
