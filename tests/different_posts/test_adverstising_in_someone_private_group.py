@@ -1,4 +1,6 @@
 import time
+
+import pytest
 import requests
 import allure
 from pages.variables_for_posts import RequestsVariables as RequestsVariables, Users
@@ -8,6 +10,7 @@ from pages.variables_for_posts import Locators as Locators
 from pages.form_page import FormPage
 
 
+@pytest.mark.skip
 class TestAdverstisingInSomeonePrivateGroup:
     allure.title("Adverstising_in_someone_private_group")
     allure.severity(severity_level="blocker")

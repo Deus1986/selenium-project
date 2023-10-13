@@ -105,79 +105,79 @@ class TestReklama:
         user_id_igor = "586349628133"
 
         month = "10"
-        day = 1
+        day = 17
 
-        # wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T23:00:00.767Z", user_id_zoya)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T03:00:00.767Z", user_id_zoya)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T07:00:00.767Z", user_id_zoya)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T11:00:00.767Z", user_id_zoya)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T15:00:00.767Z", user_id_zoya)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T19:00:00.767Z", user_id_zoya)
-        #
-        # wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T23:00:00.767Z", user_id_irina)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T03:00:00.767Z", user_id_irina)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T07:00:00.767Z", user_id_irina)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T11:00:00.767Z", user_id_irina)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T15:00:00.767Z", user_id_irina)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T19:00:00.767Z", user_id_irina)
-        #
-        # wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T23:00:00.767Z", user_id_elena)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T03:00:00.767Z", user_id_elena)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T07:00:00.767Z", user_id_elena)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T11:00:00.767Z", user_id_elena)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T15:00:00.767Z", user_id_elena)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T19:00:00.767Z", user_id_elena)
-        #
-        # wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T23:00:00.767Z", user_id_ekaterina)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T03:00:00.767Z", user_id_ekaterina)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T07:00:00.767Z", user_id_ekaterina)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T11:00:00.767Z", user_id_ekaterina)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T15:00:00.767Z", user_id_ekaterina)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T19:00:00.767Z", user_id_ekaterina)
-        #
-        # wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T23:00:00.767Z", user_id_igor)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T03:00:00.767Z", user_id_igor)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T07:00:00.767Z", user_id_igor)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T11:00:00.767Z", user_id_igor)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T15:00:00.767Z", user_id_igor)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T19:00:00.767Z", user_id_igor)
+        wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T23:00:00.767Z", user_id_zoya)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T03:00:00.767Z", user_id_zoya)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T07:00:00.767Z", user_id_zoya)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T11:00:00.767Z", user_id_zoya)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T15:00:00.767Z", user_id_zoya)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T19:00:00.767Z", user_id_zoya)
+
+        wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T23:00:00.767Z", user_id_irina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T03:00:00.767Z", user_id_irina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T07:00:00.767Z", user_id_irina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T11:00:00.767Z", user_id_irina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T15:00:00.767Z", user_id_irina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T19:00:00.767Z", user_id_irina)
+
+        wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T23:00:00.767Z", user_id_elena)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T03:00:00.767Z", user_id_elena)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T07:00:00.767Z", user_id_elena)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T11:00:00.767Z", user_id_elena)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T15:00:00.767Z", user_id_elena)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T19:00:00.767Z", user_id_elena)
+
+        wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T23:00:00.767Z", user_id_ekaterina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T03:00:00.767Z", user_id_ekaterina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T07:00:00.767Z", user_id_ekaterina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T11:00:00.767Z", user_id_ekaterina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T15:00:00.767Z", user_id_ekaterina)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T19:00:00.767Z", user_id_ekaterina)
+
+        wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T23:00:00.767Z", user_id_igor)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T03:00:00.767Z", user_id_igor)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T07:00:00.767Z", user_id_igor)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T11:00:00.767Z", user_id_igor)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T15:00:00.767Z", user_id_igor)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T19:00:00.767Z", user_id_igor)
 
 #         weetetete
 
-        wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T23:00:00.767Z", user_id_zoya)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T03:00:00.767Z", user_id_zoya)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T07:00:00.767Z", user_id_zoya)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T11:00:00.767Z", user_id_zoya)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T15:00:00.767Z", user_id_zoya)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T19:00:00.767Z", user_id_zoya)
-
-        wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T23:00:00.767Z", user_id_irina)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T03:00:00.767Z", user_id_irina)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T07:00:00.767Z", user_id_irina)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T11:00:00.767Z", user_id_irina)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T15:00:00.767Z", user_id_irina)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T19:00:00.767Z", user_id_irina)
-
-        wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T23:00:00.767Z", user_id_elena)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T03:00:00.767Z", user_id_elena)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T07:00:00.767Z", user_id_elena)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T11:00:00.767Z", user_id_elena)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T15:00:00.767Z", user_id_elena)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T19:00:00.767Z", user_id_elena)
-
-        wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T23:00:00.767Z", user_id_ekaterina)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T03:00:00.767Z", user_id_ekaterina)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T07:00:00.767Z", user_id_ekaterina)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T11:00:00.767Z", user_id_ekaterina)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T15:00:00.767Z", user_id_ekaterina)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T19:00:00.767Z", user_id_ekaterina)
-
-        wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T23:00:00.767Z", user_id_igor)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T03:00:00.767Z", user_id_igor)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T07:00:00.767Z", user_id_igor)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T11:00:00.767Z", user_id_igor)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T15:00:00.767Z", user_id_igor)
-        wait_post("2023-" + f"{month}-" + f"0{day}" + "T19:00:00.767Z", user_id_igor)
+        # wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T23:00:00.767Z", user_id_zoya)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T03:00:00.767Z", user_id_zoya)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T07:00:00.767Z", user_id_zoya)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T11:00:00.767Z", user_id_zoya)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T15:00:00.767Z", user_id_zoya)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T19:00:00.767Z", user_id_zoya)
+        #
+        # wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T23:00:00.767Z", user_id_irina)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T03:00:00.767Z", user_id_irina)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T07:00:00.767Z", user_id_irina)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T11:00:00.767Z", user_id_irina)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T15:00:00.767Z", user_id_irina)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T19:00:00.767Z", user_id_irina)
+        #
+        # wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T23:00:00.767Z", user_id_elena)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T03:00:00.767Z", user_id_elena)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T07:00:00.767Z", user_id_elena)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T11:00:00.767Z", user_id_elena)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T15:00:00.767Z", user_id_elena)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T19:00:00.767Z", user_id_elena)
+        #
+        # wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T23:00:00.767Z", user_id_ekaterina)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T03:00:00.767Z", user_id_ekaterina)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T07:00:00.767Z", user_id_ekaterina)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T11:00:00.767Z", user_id_ekaterina)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T15:00:00.767Z", user_id_ekaterina)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T19:00:00.767Z", user_id_ekaterina)
+        #
+        # wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T23:00:00.767Z", user_id_igor)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T03:00:00.767Z", user_id_igor)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T07:00:00.767Z", user_id_igor)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T11:00:00.767Z", user_id_igor)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T15:00:00.767Z", user_id_igor)
+        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T19:00:00.767Z", user_id_igor)
 
 
 
