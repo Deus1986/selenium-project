@@ -105,7 +105,7 @@ class TestReklama:
         user_id_igor = "586349628133"
 
         month = "10"
-        day = 17
+        day = 19
 
         wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T23:00:00.767Z", user_id_zoya)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T03:00:00.767Z", user_id_zoya)

@@ -70,58 +70,67 @@ class TestReklama:
         # user Igor Ulibka
         user_id_igor = "586349628133"
 
+        # user Yurii Garden
+        user_id_yurii = "594515200564"
+
         month = "10"
-        day = 14
+        day = 19
 
         description_1 = ""
-        description_2 = "Дорога вдоль осеннего леса 🍁"
+        description_2 = ""
         description_3 = ""
-        description_4 = "Фото, в котором прекрасно всё! 😊"
+        description_4 = ""
         description_5 = ""
-        description_6 = "Когда небо встречается с океаном! 😍"
+        description_6 = ""
 
-        photo_url_1 = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRHa8YaM_CiS16l1Ew7kGoCg&fn=h_768"
-        photo_url_2 = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRj59p7e2l0xzJgESpicfl2g"
-        photo_url_3 = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRYFSEL6W84_URHDQHf03mmA&fn=h_768"
-        photo_url_4 = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxR-zhiwemCHN8OSIdktEsyVA"
-        photo_url_5 = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRWUdMpUpmaFMoUq2Pu0nIlQ&fn=h_768"
-        photo_url_6 = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxR6Kfof4V6IjN8YFRFYKt4pw"
+        photo_url_1 = ""
+        photo_url_2 = ""
+        photo_url_3 = ""
+        photo_url_4 = ""
+        photo_url_5 = ""
+        photo_url_6 = ""
 
         # wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_elena, description_1, photo_url_1)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T01:00:00.767Z", user_id_irina, description_1, photo_url_1)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T05:00:00.767Z", user_id_zoya, description_1, photo_url_1)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T09:00:00.767Z", user_id_ekaterina, description_1, photo_url_1)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T13:00:00.767Z", user_id_igor, description_1, photo_url_1)
+        # wait_post("2023-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_yurii, description_1, photo_url_1)
         #
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T01:00:00.767Z", user_id_elena, description_2, photo_url_2)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T05:00:00.767Z", user_id_irina, description_2, photo_url_2)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T09:00:00.767Z", user_id_zoya, description_2, photo_url_2)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T13:00:00.767Z", user_id_ekaterina, description_2, photo_url_2)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T17:00:00.767Z", user_id_igor, description_2, photo_url_2)
+        # wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T21:00:00.767Z", user_id_yurii, description_2, photo_url_2)
         #
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T05:00:00.767Z", user_id_elena, description_3, photo_url_3)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T09:00:00.767Z", user_id_irina, description_3, photo_url_3)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T13:00:00.767Z", user_id_zoya, description_3, photo_url_3)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T17:00:00.767Z", user_id_ekaterina, description_3, photo_url_3)
         # wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_igor, description_3, photo_url_3)
+        # wait_post("2023-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_yurii, description_3, photo_url_3)
         #
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T09:00:00.767Z", user_id_elena, description_4, photo_url_4)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T13:00:00.767Z", user_id_irina, description_4, photo_url_4)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T17:00:00.767Z", user_id_zoya, description_4, photo_url_4)
         # wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_ekaterina, description_4, photo_url_4)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T01:00:00.767Z", user_id_igor, description_4, photo_url_4)
+        # wait_post("2023-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_yurii, description_4, photo_url_4)
         #
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T13:00:00.767Z", user_id_elena, description_5, photo_url_5)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T17:00:00.767Z", user_id_irina, description_5, photo_url_5)
         # wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_zoya, description_5, photo_url_5)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T01:00:00.767Z", user_id_ekaterina, description_5, photo_url_5)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T05:00:00.767Z", user_id_igor, description_5, photo_url_5)
+        # wait_post("2023-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_yurii, description_5, photo_url_5)
         #
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T17:00:00.767Z", user_id_elena, description_6, photo_url_6)
         # wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_irina, description_6, photo_url_6)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T01:00:00.767Z", user_id_zoya, description_6, photo_url_6)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T05:00:00.767Z", user_id_ekaterina, description_6, photo_url_6)
         # wait_post("2023-" + f"{month}-" + f"0{day}" + "T09:00:00.767Z", user_id_igor, description_6, photo_url_6)
+        # wait_post("2023-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_yurii, description_6, photo_url_6)
 
         # 2023-" + f"{month}-" + f"{day - 1}"
         # "09-" + "30" + "T21:00:00.767Z"
@@ -131,18 +140,21 @@ class TestReklama:
         wait_post("2023-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_zoya, description_1, photo_url_1)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_ekaterina, description_1, photo_url_1)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_igor, description_1, photo_url_1)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_yurii, description_1, photo_url_1)
 
         wait_post("2023-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_elena, description_2, photo_url_2)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_irina, description_2, photo_url_2)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_zoya, description_2, photo_url_2)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_ekaterina, description_2, photo_url_2)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_igor, description_2, photo_url_2)
+        wait_post("2023-" + f"{month}-" + f"{day-1}" + "T21:00:00.767Z", user_id_yurii, description_2, photo_url_2)
 
         wait_post("2023-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_elena, description_3, photo_url_3)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_irina, description_3, photo_url_3)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_zoya, description_3, photo_url_3)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_ekaterina, description_3, photo_url_3)
         wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T21:00:00.767Z", user_id_igor, description_3, photo_url_3)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_yurii, description_3, photo_url_3)
 
         wait_post("2023-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_elena, description_4, photo_url_4)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_irina, description_4, photo_url_4)
@@ -150,15 +162,18 @@ class TestReklama:
         wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T21:00:00.767Z", user_id_ekaterina, description_4,
                   photo_url_4)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_igor, description_4, photo_url_4)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_yurii, description_4, photo_url_4)
 
         wait_post("2023-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_elena, description_5, photo_url_5)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_irina, description_5, photo_url_5)
         wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T21:00:00.767Z", user_id_zoya, description_5, photo_url_5)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_ekaterina, description_5, photo_url_5)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_igor, description_5, photo_url_5)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_yurii, description_5, photo_url_5)
 
         wait_post("2023-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_elena, description_6, photo_url_6)
         wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T21:00:00.767Z", user_id_irina, description_6, photo_url_6)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_zoya, description_6, photo_url_6)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_ekaterina, description_6, photo_url_6)
         wait_post("2023-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_igor, description_6, photo_url_6)
+        wait_post("2023-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_yurii, description_6, photo_url_6)
