@@ -34,6 +34,10 @@ class TestPostPrivateWall:
                     {
                         "id": OKData.USER_ID,
                         "publicationTime": None
+                    },
+                    {
+                        "id": "577303695079",
+                        "publicationTime": None
                     }
                 ],
                 "groupIdsByUserId": {}
@@ -42,6 +46,11 @@ class TestPostPrivateWall:
 
         with allure.step("Выполнить публикацию на стену аккаунта"):
             post_wall = requests.post(RequestsVariables.BASE_URL + "/api/Posts/CreatePosts", headers=headers, json=body)
+            requests.post(RequestsVariables.BASE_URL + "/api/Posts/CreatePosts", headers=headers, json=body)
+            requests.post(RequestsVariables.BASE_URL + "/api/Posts/CreatePosts", headers=headers, json=body)
+            requests.post(RequestsVariables.BASE_URL + "/api/Posts/CreatePosts", headers=headers, json=body)
+            requests.post(RequestsVariables.BASE_URL + "/api/Posts/CreatePosts", headers=headers, json=body)
+            requests.post(RequestsVariables.BASE_URL + "/api/Posts/CreatePosts", headers=headers, json=body)
             assert post_wall.status_code == 200
             time.sleep(80)
 

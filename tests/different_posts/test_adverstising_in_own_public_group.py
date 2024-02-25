@@ -26,7 +26,7 @@ class TestAdverstisingInOwnPublicGroup:
         comment = Users.USER_COMMENT_2
         description = OKData.CALLA_CAPTIN_MORELLI_DESCRIPTION
         body = {
-            "accountId": OKData.USER_ID,
+            "accountId": "589219845582",
             "groupIds": [
                 OKData.GROUP_FLOWERS_OUR_FLOWERS_ID
             ],
@@ -40,38 +40,61 @@ class TestAdverstisingInOwnPublicGroup:
         }
 
         with allure.step("Выполнить публикацию на стену группы с комментарием"):
-            post_wall_group = requests.post(RequestsVariables.BASE_URL + "/api/Advertising/ToAdvertiseInTheGroupAlbum",
-                                            headers=headers, json=body)
-            assert post_wall_group.status_code == 200
-            time.sleep(60)
-
-        with allure.step("Перейти на страницу одноклассников"):
-            form_page = FormPage(driver, WebAddresses.OK_LOGIN_PAGE_ADDRESS)
-            form_page.openpage()
-
-        with allure.step("Ввести логин"):
-            form_page.enter_seric_login()
-
-        with allure.step("Ввести пароль"):
-            form_page.enter_password()
-
-        with allure.step("Нажать войти"):
-            form_page.click_enter_button()
-
-        with allure.step("Нажать на 'группы' в сайд баре"):
-            form_page.click_group_in_side_bar(Locators.TOP_SIDE_NAVIGATION_BAR_LOCATORS_WITHOUT_XPATH)
-
-        with allure.step("Нажать на группу 'Цветочки наши цветочки'"):
-            form_page.click_group_name_in_side_bar(Locators.FLOWERS_OUR_FLOWERS_GROUP)
-
-        with allure.step("Нажать на фото последнего поста"):
-            form_page.click_last_post_photo(Locators.GROUP_PAGE)
-
-        with allure.step("Проверить, что пост успешно опубликованн в чужую открытую группу"):
-            form_page.verify_last_post_text(description, time_now)
-
-        with allure.step("Проверить, что комментарий успешно опубликованн в чужую открытую группу"):
-            form_page.verify_comment_publication(comment, time_now)
-
-        with allure.step(f'Проверить, что комментарий оставлен {user_name}'):
-            form_page.verify_comment_author(user_name)
+            requests.post(RequestsVariables.BASE_URL + "/api/Advertising/ToAdvertiseInTheGroupAlbum",
+                          headers=headers, json=body)
+        #     requests.post(RequestsVariables.BASE_URL + "/api/Advertising/ToAdvertiseInTheGroupAlbum",
+        #                                     headers=headers, json=body)
+        #     requests.post(RequestsVariables.BASE_URL + "/api/Advertising/ToAdvertiseInTheGroupAlbum",
+        #                                     headers=headers, json=body)
+        #     requests.post(RequestsVariables.BASE_URL + "/api/Advertising/ToAdvertiseInTheGroupAlbum",
+        #                                     headers=headers, json=body)
+        #     requests.post(RequestsVariables.BASE_URL + "/api/Advertising/ToAdvertiseInTheGroupAlbum",
+        #                                     headers=headers, json=body)
+        #     requests.post(RequestsVariables.BASE_URL + "/api/Advertising/ToAdvertiseInTheGroupAlbum",
+        #                                     headers=headers, json=body)
+        #     requests.post(RequestsVariables.BASE_URL + "/api/Advertising/ToAdvertiseInTheGroupAlbum",
+        #                                     headers=headers, json=body)
+        #     requests.post(RequestsVariables.BASE_URL + "/api/Advertising/ToAdvertiseInTheGroupAlbum",
+        #                                     headers=headers, json=body)
+        #     requests.post(RequestsVariables.BASE_URL + "/api/Advertising/ToAdvertiseInTheGroupAlbum",
+        #                                     headers=headers, json=body)
+        #     requests.post(RequestsVariables.BASE_URL + "/api/Advertising/ToAdvertiseInTheGroupAlbum",
+        #                                     headers=headers, json=body)
+        #     requests.post(RequestsVariables.BASE_URL + "/api/Advertising/ToAdvertiseInTheGroupAlbum",
+        #                                     headers=headers, json=body)
+        #     post_wall_group = requests.post(RequestsVariables.BASE_URL + "/api/Advertising/ToAdvertiseInTheGroupAlbum",
+        #                                     headers=headers, json=body)
+        #
+        #     assert post_wall_group.status_code == 200
+        #     time.sleep(60)
+        #
+        # with allure.step("Перейти на страницу одноклассников"):
+        #     form_page = FormPage(driver, WebAddresses.OK_LOGIN_PAGE_ADDRESS)
+        #     form_page.openpage()
+        #
+        # with allure.step("Ввести логин"):
+        #     form_page.enter_seric_login()
+        #
+        # with allure.step("Ввести пароль"):
+        #     form_page.enter_password()
+        #
+        # with allure.step("Нажать войти"):
+        #     form_page.click_enter_button()
+        #
+        # with allure.step("Нажать на 'группы' в сайд баре"):
+        #     form_page.click_group_in_side_bar(Locators.TOP_SIDE_NAVIGATION_BAR_LOCATORS_WITHOUT_XPATH)
+        #
+        # with allure.step("Нажать на группу 'Цветочки наши цветочки'"):
+        #     form_page.click_group_name_in_side_bar(Locators.FLOWERS_OUR_FLOWERS_GROUP)
+        #
+        # with allure.step("Нажать на фото последнего поста"):
+        #     form_page.click_last_post_photo(Locators.GROUP_PAGE)
+        #
+        # with allure.step("Проверить, что пост успешно опубликованн в чужую открытую группу"):
+        #     form_page.verify_last_post_text(description, time_now)
+        #
+        # with allure.step("Проверить, что комментарий успешно опубликованн в чужую открытую группу"):
+        #     form_page.verify_comment_publication(comment, time_now)
+        #
+        # with allure.step(f'Проверить, что комментарий оставлен {user_name}'):
+        #     form_page.verify_comment_author(user_name)

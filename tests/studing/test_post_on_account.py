@@ -73,107 +73,147 @@ class TestReklama:
         # user Yurii Garden
         user_id_yurii = "594515200564"
 
-        month = "10"
-        day = 19
+        month = "02"
+        day = 26
 
         description_1 = ""
-        description_2 = ""
+        description_2 = "Так красиво просыпается весна! 😃"
         description_3 = ""
-        description_4 = ""
-        description_5 = ""
-        description_6 = ""
+        description_4 = "Весна в бриллиантах! 😍"
+        description_5 = "От природы с любовью! ❤"
+        description_6 = "Псковский кремль ❤️"
 
-        photo_url_1 = ""
-        photo_url_2 = ""
-        photo_url_3 = ""
-        photo_url_4 = ""
-        photo_url_5 = ""
-        photo_url_6 = ""
+        photo_url_1 = "https://i.mycdn.me/i?r=BDHElZJBPNKGuFyY-akIDfgn_PDOuAo2VMjLeRyetCRnT9UZ-HEKjXJHO2x1QIFP6bw&fn=h_768"
+        photo_url_2 = "https://i.mycdn.me/i?r=BDHElZJBPNKGuFyY-akIDfgnhcvCCndOXXIrT4fF2mI3QS6ta2_JbQbUuvnZpDAoIq8"
+        photo_url_3 = "https://i.mycdn.me/i?r=BDHElZJBPNKGuFyY-akIDfgnVxYeFRF1dD4W1wsnediv6v6hEuxZJRFUOb5B7LBGaes&fn=h_768"
+        photo_url_4 = "https://i.mycdn.me/i?r=BDHElZJBPNKGuFyY-akIDfgneYwWMKyenEZdH5fmfoqioSNMiXdUfR2_1QQMrd2y3_I"
+        photo_url_5 = "https://i.mycdn.me/i?r=BDHElZJBPNKGuFyY-akIDfgnU4mLzCUAB3EhDxcw5kh-LOXJ7beAtvffZIj66fXusmU"
+        photo_url_6 = "https://i.mycdn.me/i?r=BDHElZJBPNKGuFyY-akIDfgnG18U2vNfVRqxpW-Pi1R9bfo_DedMgBVyX-nDOGd3ymw&fn=w_790"
 
-        # wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_elena, description_1, photo_url_1)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T01:00:00.767Z", user_id_irina, description_1, photo_url_1)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T05:00:00.767Z", user_id_zoya, description_1, photo_url_1)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T09:00:00.767Z", user_id_ekaterina, description_1, photo_url_1)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T13:00:00.767Z", user_id_igor, description_1, photo_url_1)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_yurii, description_1, photo_url_1)
+        # wait_post("2024-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_elena, description_1, photo_url_1)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T01:00:00.767Z", user_id_irina, description_1, photo_url_1)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T05:00:00.767Z", user_id_zoya, description_1, photo_url_1)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T09:00:00.767Z", user_id_ekaterina, description_1, photo_url_1)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T13:00:00.767Z", user_id_igor, description_1, photo_url_1)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T17:00:00.767Z", user_id_yurii, description_1, photo_url_1)
         #
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T01:00:00.767Z", user_id_elena, description_2, photo_url_2)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T05:00:00.767Z", user_id_irina, description_2, photo_url_2)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T09:00:00.767Z", user_id_zoya, description_2, photo_url_2)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T13:00:00.767Z", user_id_ekaterina, description_2, photo_url_2)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T17:00:00.767Z", user_id_igor, description_2, photo_url_2)
-        # wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T21:00:00.767Z", user_id_yurii, description_2, photo_url_2)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T01:00:00.767Z", user_id_elena, description_2, photo_url_2)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T05:00:00.767Z", user_id_irina, description_2, photo_url_2)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T09:00:00.767Z", user_id_zoya, description_2, photo_url_2)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T13:00:00.767Z", user_id_ekaterina, description_2, photo_url_2)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T17:00:00.767Z", user_id_igor, description_2, photo_url_2)
+        # wait_post("2024-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_yurii, description_2, photo_url_2)
         #
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T05:00:00.767Z", user_id_elena, description_3, photo_url_3)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T09:00:00.767Z", user_id_irina, description_3, photo_url_3)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T13:00:00.767Z", user_id_zoya, description_3, photo_url_3)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T17:00:00.767Z", user_id_ekaterina, description_3, photo_url_3)
-        # wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_igor, description_3, photo_url_3)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_yurii, description_3, photo_url_3)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T05:00:00.767Z", user_id_elena, description_3, photo_url_3)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T09:00:00.767Z", user_id_irina, description_3, photo_url_3)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T13:00:00.767Z", user_id_zoya, description_3, photo_url_3)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T17:00:00.767Z", user_id_ekaterina, description_3, photo_url_3)
+        # wait_post("2024-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_igor, description_3, photo_url_3)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T01:00:00.767Z", user_id_yurii, description_3, photo_url_3)
         #
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T09:00:00.767Z", user_id_elena, description_4, photo_url_4)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T13:00:00.767Z", user_id_irina, description_4, photo_url_4)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T17:00:00.767Z", user_id_zoya, description_4, photo_url_4)
-        # wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_ekaterina, description_4, photo_url_4)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T01:00:00.767Z", user_id_igor, description_4, photo_url_4)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_yurii, description_4, photo_url_4)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T09:00:00.767Z", user_id_elena, description_4, photo_url_4)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T13:00:00.767Z", user_id_irina, description_4, photo_url_4)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T17:00:00.767Z", user_id_zoya, description_4, photo_url_4)
+        # wait_post("2024-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_ekaterina, description_4, photo_url_4)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T01:00:00.767Z", user_id_igor, description_4, photo_url_4)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T05:00:00.767Z", user_id_yurii, description_4, photo_url_4)
         #
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T13:00:00.767Z", user_id_elena, description_5, photo_url_5)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T17:00:00.767Z", user_id_irina, description_5, photo_url_5)
-        # wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_zoya, description_5, photo_url_5)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T01:00:00.767Z", user_id_ekaterina, description_5, photo_url_5)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T05:00:00.767Z", user_id_igor, description_5, photo_url_5)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_yurii, description_5, photo_url_5)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T13:00:00.767Z", user_id_elena, description_5, photo_url_5)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T17:00:00.767Z", user_id_irina, description_5, photo_url_5)
+        # wait_post("2024-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_zoya, description_5, photo_url_5)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T01:00:00.767Z", user_id_ekaterina, description_5, photo_url_5)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T05:00:00.767Z", user_id_igor, description_5, photo_url_5)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T09:00:00.767Z", user_id_yurii, description_5, photo_url_5)
         #
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T17:00:00.767Z", user_id_elena, description_6, photo_url_6)
-        # wait_post("2023-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_irina, description_6, photo_url_6)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T01:00:00.767Z", user_id_zoya, description_6, photo_url_6)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T05:00:00.767Z", user_id_ekaterina, description_6, photo_url_6)
-        # wait_post("2023-" + f"{month}-" + f"0{day}" + "T09:00:00.767Z", user_id_igor, description_6, photo_url_6)
-        # wait_post("2023-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_yurii, description_6, photo_url_6)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T17:00:00.767Z", user_id_elena, description_6, photo_url_6)
+        # wait_post("2024-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_irina, description_6, photo_url_6)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T01:00:00.767Z", user_id_zoya, description_6, photo_url_6)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T05:00:00.767Z", user_id_ekaterina, description_6, photo_url_6)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T09:00:00.767Z", user_id_igor, description_6, photo_url_6)
+        # wait_post("2024-" + f"{month}-" + f"0{day}" + "T13:00:00.767Z", user_id_yurii, description_6, photo_url_6)
 
         # 2023-" + f"{month}-" + f"{day - 1}"
-        # "09-" + "30" + "T21:00:00.767Z"
+        # 2024-" + f"01-" + "31" + "T21:00:00.767Z"
 
-        wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T21:00:00.767Z", user_id_elena, description_1, photo_url_1)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_irina, description_1, photo_url_1)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_zoya, description_1, photo_url_1)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_ekaterina, description_1, photo_url_1)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_igor, description_1, photo_url_1)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_yurii, description_1, photo_url_1)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_irina, description_1, photo_url_1)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_zoya, description_1, photo_url_1)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_igor, description_1, photo_url_1)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_yurii, description_1, photo_url_1)
 
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_elena, description_2, photo_url_2)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_irina, description_2, photo_url_2)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_zoya, description_2, photo_url_2)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_ekaterina, description_2, photo_url_2)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_igor, description_2, photo_url_2)
-        wait_post("2023-" + f"{month}-" + f"{day-1}" + "T21:00:00.767Z", user_id_yurii, description_2, photo_url_2)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_irina, description_2, photo_url_2)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_zoya, description_2, photo_url_2)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_igor, description_2, photo_url_2)
+        wait_post("2024-" + f"{month}-" + f"{day-1}" + "T21:00:00.767Z", user_id_yurii, description_2, photo_url_2)
 
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_elena, description_3, photo_url_3)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_irina, description_3, photo_url_3)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_zoya, description_3, photo_url_3)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_ekaterina, description_3, photo_url_3)
-        wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T21:00:00.767Z", user_id_igor, description_3, photo_url_3)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_yurii, description_3, photo_url_3)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_irina, description_3, photo_url_3)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_zoya, description_3, photo_url_3)
+        wait_post("2024-" + f"{month}-" + f"{day - 1}" + "T21:00:00.767Z", user_id_igor, description_3, photo_url_3)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_yurii, description_3, photo_url_3)
 
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_elena, description_4, photo_url_4)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_irina, description_4, photo_url_4)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_zoya, description_4, photo_url_4)
-        wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T21:00:00.767Z", user_id_ekaterina, description_4,
-                  photo_url_4)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_igor, description_4, photo_url_4)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_yurii, description_4, photo_url_4)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_irina, description_4, photo_url_4)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_zoya, description_4, photo_url_4)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_igor, description_4, photo_url_4)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_yurii, description_4, photo_url_4)
 
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_elena, description_5, photo_url_5)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_irina, description_5, photo_url_5)
-        wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T21:00:00.767Z", user_id_zoya, description_5, photo_url_5)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_ekaterina, description_5, photo_url_5)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_igor, description_5, photo_url_5)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_yurii, description_5, photo_url_5)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_irina, description_5, photo_url_5)
+        wait_post("2024-" + f"{month}-" + f"{day - 1}" + "T21:00:00.767Z", user_id_zoya, description_5, photo_url_5)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_igor, description_5, photo_url_5)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_yurii, description_5, photo_url_5)
 
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_elena, description_6, photo_url_6)
-        wait_post("2023-" + f"{month}-" + f"{day - 1}" + "T21:00:00.767Z", user_id_irina, description_6, photo_url_6)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_zoya, description_6, photo_url_6)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_ekaterina, description_6, photo_url_6)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_igor, description_6, photo_url_6)
-        wait_post("2023-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_yurii, description_6, photo_url_6)
+        wait_post("2024-" + f"{month}-" + f"{day - 1}" + "T21:00:00.767Z", user_id_irina, description_6, photo_url_6)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_zoya, description_6, photo_url_6)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_igor, description_6, photo_url_6)
+        wait_post("2024-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_yurii, description_6, photo_url_6)
+
+
+
+
+
+
+
+
+
+
+
+        # wait_post("2024-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_elena, description_1, photo_url_1)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_irina, description_1, photo_url_1)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_zoya, description_1, photo_url_1)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_ekaterina, description_1, photo_url_1)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_igor, description_1, photo_url_1)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_yurii, description_1, photo_url_1)
+        #
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_elena, description_2, photo_url_2)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_irina, description_2, photo_url_2)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_zoya, description_2, photo_url_2)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_ekaterina, description_2, photo_url_2)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_igor, description_2, photo_url_2)
+        # wait_post("2024-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_yurii, description_2, photo_url_2)
+        #
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_elena, description_3, photo_url_3)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_irina, description_3, photo_url_3)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_zoya, description_3, photo_url_3)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_ekaterina, description_3, photo_url_3)
+        # wait_post("2024-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_igor, description_3, photo_url_3)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_yurii, description_3, photo_url_3)
+        #
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_elena, description_4, photo_url_4)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_irina, description_4, photo_url_4)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_zoya, description_4, photo_url_4)
+        # wait_post("2024-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_ekaterina, description_4,
+        #           photo_url_4)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_igor, description_4, photo_url_4)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_yurii, description_4, photo_url_4)
+        #
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_elena, description_5, photo_url_5)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_irina, description_5, photo_url_5)
+        # wait_post("2024-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_zoya, description_5, photo_url_5)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_ekaterina, description_5, photo_url_5)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_igor, description_5, photo_url_5)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_yurii, description_5, photo_url_5)
+        #
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T17:00:00.767Z", user_id_elena, description_6, photo_url_6)
+        # wait_post("2024-" + f"{month}-" + f"0{day - 1}" + "T21:00:00.767Z", user_id_irina, description_6, photo_url_6)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T01:00:00.767Z", user_id_zoya, description_6, photo_url_6)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T05:00:00.767Z", user_id_ekaterina, description_6, photo_url_6)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T09:00:00.767Z", user_id_igor, description_6, photo_url_6)
+        # wait_post("2024-" + f"{month}-" + f"{day}" + "T13:00:00.767Z", user_id_yurii, description_6, photo_url_6)

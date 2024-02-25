@@ -50,7 +50,7 @@ class OKData:
                   "июнь-сентябрь. Период цветения: июнь-август. Место посадки: солнце/полутень."
 
     CALLA_CHAMELEON_PHOTO = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRpNHaRE83Idry9iysh9m3LQ"
-    CALLA_CAPTIN_MORELLI_PHOTO = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRokwSgPrsezL9_J6y_vVGQg"
+    CALLA_CAPTIN_MORELLI_PHOTO = "https://klike.net/uploads/posts/2023-03/1678775008_3-100.jpg"
     CALLA_AMETIST_PHOTO = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRrHlEJMCSuJh5kk_tzAIpZw"
     CALLA_CAPTIN_SAFARI_PHOTO = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRokwSgPrsezL9_J6y_vVGQg"
     CALLA_CAPTIN_VENTURA_PHOTO = "https://i.mycdn.me/i?r=AyH4iRPQ2q0otWIFepML2LxRdD5PjNjorIDtPYCelRtrQg"
