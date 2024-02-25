@@ -25,4 +25,5 @@ steps:
     pytest
   displayName: 'pytest'
 
-- script: python tests/different_posts/test_adverstising_in_own_public_group.py
+- script: python |
+    tests/different_posts/test_adverstising_in_own_public_group.py

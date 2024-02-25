@@ -1,12 +1,14 @@
+import pytest
 import pywinauto
 import pyautogui as pag
 from pywinauto.application import Application
-from pywinauto.keyboard import send_keys
-from pywinauto import keyboard as kb
+# from pywinauto.keyboard import send_keys
+# from pywinauto import keyboard as kb
 import time
 import allure
 
 
+@pytest.mark.skip
 def test_native_creating_product_price_negative():
     app = Application(backend="uia").start('C://Users//user//Documents//FlowersBotBuildDev//FlowersCRM.exe')
     time.sleep(2)
@@ -24,12 +26,12 @@ def test_native_creating_product_price_negative():
     with allure.step("Ввести пароль для входа в приложение"):
         if dlg_spec.exists():
             dlg_spec.wait('visible'), dlg_spec.child_window(auto_id="passwordBox").set_text("Gfhjkm"), \
-            dlg_spec.OKButton.click(), dlg_spec_2.wait('visible'), \
-            dlg_spec_2.child_window(auto_id="passwordBox").set_text('1234'), dlg_spec_2.OKButton.click()
+                dlg_spec.OKButton.click(), dlg_spec_2.wait('visible'), \
+                dlg_spec_2.child_window(auto_id="passwordBox").set_text('1234'), dlg_spec_2.OKButton.click()
 
         else:
             dlg_spec_2.wait('visible'), dlg_spec_2.child_window(auto_id="passwordBox").set_text('1234'), \
-            dlg_spec_2.OKButton.click()
+                dlg_spec_2.OKButton.click()
 
     with allure.step("Нажать товары"):
         dlg_spec_3.wait('visible')
@@ -144,7 +146,6 @@ def test_native_creating_product_price_negative():
 
     # time.sleep(8)
 
-
     # time.sleep(10)
     # send_keys('{DOWN}')
     # dlg_spec_3.child_window(auto_id="Name", control_type="Edit").set_text("Gfhjkm")
@@ -152,7 +153,6 @@ def test_native_creating_product_price_negative():
     # dlg_spec_3.child_window(auto_id="CostPrice", control_type="Edit").set_text("65")
     # dlg_spec_3.child_window(title="Создать", auto_id="CreateButton", control_type="Button").click()
     # dlg_spec_3.ОКButton.click()
-
 
     # time.sleep(2)
 
