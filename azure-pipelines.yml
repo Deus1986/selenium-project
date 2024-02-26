@@ -24,9 +24,3 @@ steps:
     pip install pytest pytest-azurepipelines
     pytest
   displayName: 'pytest'
-
-- script: tests/different_posts/test_adverstising_in_own_public_group.py
-
-- script: |
-    python -m unittest discover -p "*.py" > results.txt
-    displayName: unittesting
