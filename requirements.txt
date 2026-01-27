@@ -1,7 +1,15 @@
 selenium==4.11.2
-webdriver-manager==4.0.0
+webdriver-manager==4.0.2
 allure-pytest==2.13.0
 pytest==7.3.1
-requests==2.31.0
+requests==2.32.0
 PyAutoGUI==0.9.54
 emoji==2.8.0
+pytest-xdist==3.6.1
+keyboard~=0.13.5
+pillow~=10.4.0
+numpy~=2.3.2
+scipy~=1.16.1
+TA-Lib==0.6.8
+matplotlib~=3.10.5
+pandas~=2.3.2
