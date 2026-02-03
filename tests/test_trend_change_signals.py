@@ -9,10 +9,6 @@ import talib
 from datetime import datetime
 
 
-MIN_RR = 3.0
-MIN_PROFIT_PCT = 0.05  # минимальная прибыль 5% от входа
-
-
 def format_price(value):
     """Формат цены без научной записи."""
     if value is None or value == "":
@@ -220,11 +216,6 @@ def evaluate_trend_change(df):
         take_profit = entry - max(atr * 2.0, recent_range * 0.7)
 
     rr = abs((take_profit - entry) / (entry - stop)) if (entry - stop) != 0 else 0
-    profit_pct = abs(take_profit - entry) / entry
-
-    # Фильтр: R/R ≥ 1:3, прибыль ≥ 5%
-    if rr < MIN_RR or profit_pct < MIN_PROFIT_PCT:
-        return None
 
     return {
         "enter_now": "Да",
