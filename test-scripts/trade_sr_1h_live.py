@@ -3,14 +3,15 @@ S/R 1H — торговля по сигналам на реальной бирж
 При появлении сигнала — звук; уже отданные позиции не повторяются (состояние в JSON).
 
 Запуск:  python test-scripts/trade_sr_1h_live.py
-Цикл: проверка всех монет с объёмом > 10M, затем пауза 60 сек.
+Режим: проверка всех монет с объёмом > 10M ОДИН РАЗ В ЧАС,
+       на 1-й секунде каждой новой часовой свечи (HH:00:01).
 """
 import sys
 import os
 import json
 import time
 import winsound
-from datetime import datetime
+from datetime import datetime, timedelta
 
 _tests = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "tests")
 sys.path.insert(0, os.path.abspath(_tests))
@@ -21,7 +22,6 @@ STATE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sr_1h_liv
 CANDLES_LIMIT = 400
 INTERVAL = "Min60"
 MIN_VOLUME = 10_000_000
-PAUSE_SEC = 60
 
 
 def load_state():
@@ -40,6 +40,20 @@ def save_state(state_set):
             json.dump(sorted(list(state_set)), f, ensure_ascii=False, indent=2)
     except Exception as e:
         print("  Ошибка сохранения состояния:", e)
+
+
+def wait_until_next_hour():
+    """
+    Ждёт до 1-й секунды следующего часа (HH:00:01) и делает паузу только до этого момента.
+    Используется, чтобы проверять сигналы строго раз в час, сразу после закрытия часовой свечи.
+    """
+    now = datetime.now()
+    # Следующий час с минутой/секундой 00:01
+    next_hour = (now.replace(minute=0, second=1, microsecond=0) + timedelta(hours=1))
+    sleep_seconds = (next_hour - now).total_seconds()
+    if sleep_seconds > 0:
+        print(f"  Ожидание до следующего часа: {int(sleep_seconds)} сек.")
+        time.sleep(sleep_seconds)
 
 
 def run_cycle(state_set):
@@ -80,11 +94,14 @@ def main():
     print("  S/R 1H LIVE — СКРИПТ ЗАПУЩЕН")
     print("  Торговля по сигналам (MEXC), реальные монеты.")
     print("  Старт:", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    print("  Режим: проверка КАЖДЫЙ ЧАС (HH:00:01), без лишних запусков.")
     print("=" * 60)
     print()
 
     state_set = load_state()
     while True:
+        wait_until_next_hour()
+        print(f"\n⏰ Запуск проверки: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         state_set, new_signals = run_cycle(state_set)
         if new_signals:
             save_state(state_set)
@@ -98,8 +115,7 @@ def main():
             except Exception:
                 pass
         else:
-            print(f"  Проверка завершена. Следующий цикл через {PAUSE_SEC} сек.")
-        time.sleep(PAUSE_SEC)
+            print("  Сигналов нет в этом часу.")
 
 
 if __name__ == "__main__":
