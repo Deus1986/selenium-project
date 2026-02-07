@@ -53,10 +53,15 @@ def wait_until_next_hour():
         time.sleep(sleep_seconds)
 
 
+# Коэффициенты для стопа и тейк-профита (в единицах ATR)
+ATR_STOP = 1.0
+ATR_TP = 2.0
+
+
 def check_ema_cross(df):
     """
     Пересечение EMA 10 и EMA 60 на последней закрытой свече.
-    Возвращает "LONG", "SHORT" или None, плюс entry, signal_time.
+    Возвращает направление, entry, stop, take_profit и рекомендации (где входить, где не входить).
     """
     if df is None or len(df) < MIN_BARS:
         return None
@@ -65,27 +70,50 @@ def check_ema_cross(df):
     if "ema_10" not in df.columns:
         df["ema_10"] = talib.EMA(c, timeperiod=10)
     df["ema_60"] = talib.EMA(c, timeperiod=60)
+    if "atr" not in df.columns:
+        h, l = df["high"].values, df["low"].values
+        df["atr"] = talib.ATR(h, l, c, timeperiod=14)
     last = df.iloc[-1]
     prev = df.iloc[-2]
     if np.isnan(last["ema_10"]) or np.isnan(last["ema_60"]) or np.isnan(prev["ema_10"]) or np.isnan(prev["ema_60"]):
         return None
+    atr = float(last["atr"]) if not np.isnan(last["atr"]) and last["atr"] > 0 else float(last["close"]) * 0.01
+    signal_time = last["datetime"].strftime("%Y-%m-%d %H:%M") if hasattr(last["datetime"], "strftime") else str(last["datetime"])
+    entry = float(last["close"])
+
     # Кросс вверх: было EMA10 < EMA60, стало EMA10 > EMA60
     if prev["ema_10"] < prev["ema_60"] and last["ema_10"] > last["ema_60"]:
+        stop = entry - ATR_STOP * atr
+        take_profit = entry + ATR_TP * atr
         return {
             "direction": "LONG",
-            "entry": float(last["close"]),
+            "entry": entry,
+            "stop": stop,
+            "take_profit": take_profit,
             "ema_10": float(last["ema_10"]),
             "ema_60": float(last["ema_60"]),
-            "signal_time": last["datetime"].strftime("%Y-%m-%d %H:%M") if hasattr(last["datetime"], "strftime") else str(last["datetime"]),
+            "atr": atr,
+            "signal_time": signal_time,
+            "recommendation_enter": "Вход: по закрытию часовой свечи (текущая цена) или при откате к EMA 60 — не догонять цену выше.",
+            "recommendation_no_enter": "Не входить: если цена уже ушла вверх от сигнальной свечи больше чем на 1–2% или далеко от EMA 60 (ждём откат).",
+            "recommendation_tp": f"Тейк-профит: {ATR_TP} ATR от входа (ориентир {take_profit:.4f}). Часть прибыли фиксировать на 1.5–2 ATR, остальное — по рынку или трейлинг.",
         }
     # Кросс вниз: было EMA10 > EMA60, стало EMA10 < EMA60
     if prev["ema_10"] > prev["ema_60"] and last["ema_10"] < last["ema_60"]:
+        stop = entry + ATR_STOP * atr
+        take_profit = entry - ATR_TP * atr
         return {
             "direction": "SHORT",
-            "entry": float(last["close"]),
+            "entry": entry,
+            "stop": stop,
+            "take_profit": take_profit,
             "ema_10": float(last["ema_10"]),
             "ema_60": float(last["ema_60"]),
-            "signal_time": last["datetime"].strftime("%Y-%m-%d %H:%M") if hasattr(last["datetime"], "strftime") else str(last["datetime"]),
+            "atr": atr,
+            "signal_time": signal_time,
+            "recommendation_enter": "Вход: по закрытию часовой свечи (текущая цена) или при откате к EMA 60 — не догонять цену ниже.",
+            "recommendation_no_enter": "Не входить: если цена уже ушла вниз от сигнальной свечи больше чем на 1–2% или далеко от EMA 60 (ждём откат).",
+            "recommendation_tp": f"Тейк-профит: {ATR_TP} ATR от входа (ориентир {take_profit:.4f}). Часть прибыли фиксировать на 1.5–2 ATR, остальное — по рынку или трейлинг.",
         }
     return None
 
@@ -113,8 +141,13 @@ def run_cycle(state_set):
                 "direction": res["direction"],
                 "signal_time": res["signal_time"],
                 "entry": res["entry"],
+                "stop": res["stop"],
+                "take_profit": res["take_profit"],
                 "ema_10": res["ema_10"],
                 "ema_60": res["ema_60"],
+                "recommendation_enter": res["recommendation_enter"],
+                "recommendation_no_enter": res["recommendation_no_enter"],
+                "recommendation_tp": res["recommendation_tp"],
             })
         except Exception as e:
             print(f"  {symbol}: {e}")
@@ -140,7 +173,10 @@ def main():
         if new_signals:
             save_state(state_set)
             for s in new_signals:
-                print(f"[СИГНАЛ] {s['symbol']}  {s['direction']}  Вход: {format_price(s['entry'])}  EMA10: {format_price(s['ema_10'])}  EMA60: {format_price(s['ema_60'])}  | {s['signal_time']}")
+                print(f"[СИГНАЛ] {s['symbol']}  {s['direction']}  Вход: {format_price(s['entry'])}  Стоп: {format_price(s['stop'])}  Тейк: {format_price(s['take_profit'])}  | {s['signal_time']}")
+                print(f"         {s['recommendation_enter']}")
+                print(f"         {s['recommendation_no_enter']}")
+                print(f"         {s['recommendation_tp']}")
             try:
                 winsound.Beep(1200, 500)
                 winsound.Beep(800, 400)
