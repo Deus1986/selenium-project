@@ -314,8 +314,9 @@ def main():
         EFFECTIVE_NOTIONAL_USD = POSITION_NOTIONAL_USD
     print("  Старт:", datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     if DRY_RUN:
-        print("  *** DRY_RUN: только сигналы, ордера не отправляются ***")
+        print("  *** DRY_RUN: только сигналы, ордера НЕ отправляются ***")
     else:
+        print("  Режим: РЕАЛЬНЫЕ ОРДЕРА (вход + авто TP/SL)")
         if not os.environ.get("BINANCE_API_KEY") or not os.environ.get("BINANCE_SECRET"):
             print("  Задайте BINANCE_API_KEY и BINANCE_SECRET в .env для отправки ордеров.")
     print("=" * 64)
@@ -374,6 +375,7 @@ def main():
             tp_sl_ok, closed_anyway, tp_sl_msg = set_tp_sl_with_retries(symbol, stop, tp, is_long, quantity)
             if tp_sl_ok:
                 print("    TP и SL выставлены.")
+                print(f"    >>> Вход: {format_price(entry)}  |  SL: {format_price(stop)}  |  TP: {format_price(tp)}  <<<")
             elif closed_anyway:
                 print(f"    {tp_sl_msg}")
             else:
