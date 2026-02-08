@@ -73,6 +73,7 @@ EFFECTIVE_NOTIONAL_USD = None  # задаётся в main()
 TP_SL_MAX_ATTEMPTS = 15
 TP_SL_RETRY_DELAY_SEC = 1.0
 STATE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "trade_5m_hybrid_binance_state.json")
+SIGNALS_LOG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "trade_5m_hybrid_binance_signals.json")
 API_TIMEOUT = 30
 
 
@@ -235,6 +236,37 @@ def save_state(state_set):
         print("  Ошибка сохранения state:", e)
 
 
+def append_signal_to_log(signal_dict: dict, sent_at: str = None):
+    """Добавить отправленный сигнал в JSON-лог для статистики (монета, вход, SL, TP; outcome — позже TP/SL)."""
+    if sent_at is None:
+        sent_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    entry = float(signal_dict.get("entry", 0))
+    stop = float(signal_dict.get("stop", 0))
+    tp = float(signal_dict.get("take_profit", 0))
+    record = {
+        "symbol": signal_dict.get("symbol", ""),
+        "direction": signal_dict.get("direction", ""),
+        "entry": round(entry, 8),
+        "stop": round(stop, 8),
+        "take_profit": round(tp, 8),
+        "signal_time": signal_dict.get("signal_time", ""),
+        "sent_at": sent_at,
+        "outcome": None,
+    }
+    try:
+        log = []
+        if os.path.isfile(SIGNALS_LOG_FILE):
+            with open(SIGNALS_LOG_FILE, "r", encoding="utf-8") as f:
+                log = json.load(f)
+        if not isinstance(log, list):
+            log = []
+        log.append(record)
+        with open(SIGNALS_LOG_FILE, "w", encoding="utf-8") as f:
+            json.dump(log, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        print("  Ошибка записи лога сигналов:", e)
+
+
 def wait_until_next_5m():
     now = datetime.now()
     minute = (now.minute // 5) * 5
@@ -341,6 +373,7 @@ def main():
             stop = float(sig["stop"])
             tp = float(sig["take_profit"])
             print(f"  [СИГНАЛ] {_safe_console(symbol)}  {direction}  Entry:{format_price(entry)}  SL:{format_price(stop)}  TP:{format_price(tp)}  | {sig['signal_time']}")
+            append_signal_to_log(sig)
 
             if DRY_RUN:
                 print("    (DRY_RUN — ордер не отправлен)")
