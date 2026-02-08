@@ -1,0 +1,11 @@
+# 5m backtest, 60 days, all coins. R:R 1:3
+# Generated: 2026-02-08 00:17
+
+STRATEGY             TRADES     TP     SL  OPEN      NET R
+------------------------------------------------------------
+pullback_ema         121150  29276  91778    96    -3950.0
+breakout_10           69300  16248  52980    72    -4236.0
+ema9_21               10034   2339   7689     6     -672.0
+trend_change            673    183    483     7      +66.0
+
+Best: trend_change  Net=+66.0 R  Trades=673
