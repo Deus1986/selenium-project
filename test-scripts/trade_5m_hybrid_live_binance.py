@@ -18,7 +18,9 @@ import hmac
 import hashlib
 import urllib.parse
 import requests
+import math
 from datetime import datetime, timedelta
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 try:
     from dotenv import load_dotenv
@@ -41,6 +43,7 @@ from backtest_5m_trend_mexc import (
 from backtest_5m_trend_binance import (
     get_binance_symbols,
     fetch_binance_history,
+    get_symbols_min_notional_map,
     BINANCE_BASE,
     MIN_VOLUME_24H_USDT,
 )
@@ -75,6 +78,7 @@ TP_SL_RETRY_DELAY_SEC = 1.0
 STATE_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "trade_5m_hybrid_binance_state.json")
 SIGNALS_LOG_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "trade_5m_hybrid_binance_signals.json")
 API_TIMEOUT = 30
+MIN_NOTIONAL_MAP = {}
 
 
 def _binance_sign(secret: str, query: str) -> str:
@@ -132,11 +136,11 @@ def get_symbol_filters():
 
 
 def round_quantity(qty: float, step: float, min_qty: float) -> float:
+    """Простое округление по шагу Binance (stepSize)."""
     if step <= 0:
         return max(min_qty, qty)
-    rounded = round(qty / step) * step
-    rounded = round(rounded, 8)
-    return max(min_qty, rounded)
+    steps = round(qty / step)
+    return round(steps * step, 8)
 
 
 def set_leverage(symbol: str, leverage: int):
@@ -280,43 +284,71 @@ def wait_until_next_5m():
         time.sleep(sec)
 
 
+def _compute_signal_for_symbol(symbol: str):
+    """Вынесено отдельно, чтобы можно было считать сигналы в нескольких потоках."""
+    try:
+        # В лайве берём последние 5 дней истории (5m) для ускорения цикла.
+        df = fetch_binance_history(symbol, days=5, interval="5m")
+        if df is None or len(df) < MIN_BARS:
+            return None
+        df = add_indicators(df)
+        signals = get_signals(df)
+        if not signals:
+            return None
+        last = signals[-1]
+        bar_idx = last["bar_index"]
+        if bar_idx < len(df) - 2:
+            return None
+        return {
+            "symbol": symbol,
+            "direction": last["direction"],
+            "entry": last["entry"],
+            "stop": last["stop"],
+            "take_profit": last["take_profit"],
+            "signal_time": last.get("signal_time", ""),
+            "bar_index": last["bar_index"],
+        }
+    except Exception as e:
+        print(f"  {symbol}: {e}")
+        return None
+
+
 def run_cycle(state_set):
-    """Сбор сигналов: символы с min notional <= эффективный номинал; при ONLY_TOP_COINS — только топ по TP."""
+    """Сбор сигналов: символы с min notional <= эффективный номинал; при ONLY_TOP_COINS — только топ по TP.
+
+    Для ускорения считаем историю/индикаторы по монетам параллельно (несколько потоков).
+    """
     notional = EFFECTIVE_NOTIONAL_USD if EFFECTIVE_NOTIONAL_USD is not None else POSITION_NOTIONAL_USD
     symbols = get_binance_symbols(min_volume_usdt=MIN_VOLUME_24H_USDT, max_min_notional_usdt=notional)
     if ONLY_TOP_COINS and symbols:
         top_set = set(TOP_COINS_BY_TP)
         symbols = [s for s in symbols if s["symbol"] in top_set]
     new_signals = []
-    for s in symbols:
-        symbol = s["symbol"]
-        try:
-            df = fetch_binance_history(symbol, days=30, interval="5m")
-            if df is None or len(df) < MIN_BARS:
+    if not symbols:
+        return state_set, new_signals
+
+    # Небольшой пул потоков, чтобы не долбить Binance слишком агрессивно.
+    with ThreadPoolExecutor(max_workers=8) as executor:
+        future_to_symbol = {
+            executor.submit(_compute_signal_for_symbol, s["symbol"]): s["symbol"]
+            for s in symbols
+        }
+        for fut in as_completed(future_to_symbol):
+            sig = fut.result()
+            if not sig:
                 continue
-            df = add_indicators(df)
-            signals = get_signals(df)
-            if not signals:
-                continue
-            last = signals[-1]
-            bar_idx = last["bar_index"]
-            if bar_idx < len(df) - 2:
-                continue
-            key = f"{symbol}|{last['direction']}|{last.get('signal_time', '')}"
+            key = f"{sig['symbol']}|{sig['direction']}|{sig.get('signal_time', '')}"
             if key in state_set:
                 continue
             state_set.add(key)
             new_signals.append({
-                "symbol": symbol,
-                "direction": last["direction"],
-                "entry": last["entry"],
-                "stop": last["stop"],
-                "take_profit": last["take_profit"],
-                "signal_time": last.get("signal_time", ""),
+                "symbol": sig["symbol"],
+                "direction": sig["direction"],
+                "entry": sig["entry"],
+                "stop": sig["stop"],
+                "take_profit": sig["take_profit"],
+                "signal_time": sig.get("signal_time", ""),
             })
-        except Exception as e:
-            print(f"  {symbol}: {e}")
-        time.sleep(0.15)
     return state_set, new_signals
 
 
@@ -355,6 +387,13 @@ def main():
     print()
 
     filters_cache = get_symbol_filters()
+    # Кэш min notional по символам, чтобы не получать ошибки вида "Order's notional must be no smaller than 5".
+    global MIN_NOTIONAL_MAP
+    try:
+        MIN_NOTIONAL_MAP = get_symbols_min_notional_map() or {}
+    except Exception as e:
+        print("  Не удалось загрузить MIN_NOTIONAL карту:", e)
+        MIN_NOTIONAL_MAP = {}
     state_set = load_state()
 
     while True:
@@ -379,8 +418,17 @@ def main():
                 print("    (DRY_RUN — ордер не отправлен)")
                 continue
 
-            # Размер позиции: номинал (effective) -> quantity = notional / entry (в базе)
-            notional = EFFECTIVE_NOTIONAL_USD if EFFECTIVE_NOTIONAL_USD is not None else POSITION_NOTIONAL_USD
+            # Проверка: пропускаем монеты, где MIN_NOTIONAL > 5.3
+            try:
+                sym_min_notional = float(MIN_NOTIONAL_MAP.get(symbol, 999))
+            except (TypeError, ValueError):
+                sym_min_notional = 999.0
+            if sym_min_notional > 5.3:
+                print(f"    Пропуск: MIN_NOTIONAL {sym_min_notional:.2f} > 5.3 USDT")
+                continue
+
+            # Вход: фиксированный номинал 5.3 USDT
+            notional = 5.3
             if entry <= 0:
                 print("    Пропуск: некорректная цена входа")
                 continue

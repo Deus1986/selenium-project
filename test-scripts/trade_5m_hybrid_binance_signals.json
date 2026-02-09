@@ -1,0 +1,22 @@
+[
+  {
+    "symbol": "LITUSDT",
+    "direction": "SHORT",
+    "entry": 1.555,
+    "stop": 1.56578809,
+    "take_profit": 1.52263573,
+    "signal_time": "2026-02-09 11:20",
+    "sent_at": "2026-02-09 14:25:33",
+    "outcome": null
+  },
+  {
+    "symbol": "TONUSDT",
+    "direction": "SHORT",
+    "entry": 1.353,
+    "stop": 1.35840002,
+    "take_profit": 1.33679994,
+    "signal_time": "2026-02-09 12:10",
+    "sent_at": "2026-02-09 15:16:53",
+    "outcome": null
+  }
+]

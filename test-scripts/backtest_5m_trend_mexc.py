@@ -159,7 +159,11 @@ def add_indicators(df):
     df["ema_slow"] = talib.EMA(c, timeperiod=EMA_SLOW)
     df["atr"] = talib.ATR(h, l, c, timeperiod=14)
     df["vol_sma"] = talib.SMA(v, timeperiod=20)
-    df["vol_ratio"] = np.where(df["vol_sma"] > 0, v / df["vol_sma"].values, 1.0)
+    # vol_ratio: отношение текущего объёма к среднему за 20 свечей.
+    # Предупреждения вида "invalid value encountered in divide" нам не нужны в консоли,
+    # поэтому временно игнорируем их при расчёте.
+    with np.errstate(divide="ignore", invalid="ignore"):
+        df["vol_ratio"] = np.where(df["vol_sma"] > 0, v / df["vol_sma"].values, 1.0)
     df["swing_high"] = df["high"].rolling(20).max().shift(1)
     df["swing_low"] = df["low"].rolling(20).min().shift(1)
     df["rsi"] = talib.RSI(c, timeperiod=14)

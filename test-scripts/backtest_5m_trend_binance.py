@@ -240,15 +240,20 @@ def _is_bad_result(r):
 
 
 def main():
-    days = int(sys.argv[1]) if len(sys.argv) > 1 else 30
+    # По умолчанию бэктест считаем по последним 5 дням.
+    # При необходимости можно явно передать количество дней аргументом, например: python backtest_5m_trend_binance.py 30
+    days = int(sys.argv[1]) if len(sys.argv) > 1 else 5
     symbols_list = get_binance_symbols(min_volume_usdt=MIN_VOLUME_24H_USDT, max_min_notional_usdt=MAX_MIN_NOTIONAL_USDT)
     if not symbols_list:
         print("  Failed to get Binance symbol list.")
         return
+    # Фильтр: только монеты с MIN_NOTIONAL <= 5.3 (как в лайв-скрипте)
+    notional_map = get_symbols_min_notional_map()
+    symbols_list = [s for s in symbols_list if float(notional_map.get(s["symbol"], 999)) <= 5.3]
     print()
     print("=" * 72)
     print("  BACKTEST BINANCE 5m (USDT-M Futures)  Strategy: hybrid   R:R 1:3  SL=0.3R")
-    print(f"  Last {days} days  |  {len(symbols_list)} symbols (vol > {MIN_VOLUME_24H_USDT/1e6:.0f}M, min notional <= ${MAX_MIN_NOTIONAL_USDT:.0f})")
+    print(f"  Last {days} days  |  {len(symbols_list)} symbols (vol > {MIN_VOLUME_24H_USDT/1e6:.0f}M, MIN_NOTIONAL <= 5.3 USDT)")
     print("=" * 72)
     results = []
     for i, s in enumerate(symbols_list):
