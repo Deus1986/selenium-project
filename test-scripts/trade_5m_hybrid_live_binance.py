@@ -19,6 +19,7 @@ import hashlib
 import urllib.parse
 import requests
 import math
+import pandas as pd
 from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
@@ -113,7 +114,7 @@ def _signed_request(method: str, path: str, params: dict = None):
 
 
 def get_symbol_filters():
-    """Кэш: символ -> {stepSize, minQty} из exchangeInfo LOT_SIZE."""
+    """Кэш: символ -> {stepSize, minQty, tickSize} из exchangeInfo LOT_SIZE/PRICE_FILTER."""
     url = f"{BINANCE_BASE}/fapi/v1/exchangeInfo"
     try:
         r = requests.get(url, timeout=API_TIMEOUT)
@@ -123,13 +124,18 @@ def get_symbol_filters():
         out = {}
         for s in data.get("symbols", []):
             sym = s.get("symbol", "")
+            f_obj = {"stepSize": 0.001, "minQty": 0.0, "tickSize": 0.0001}
             for f in s.get("filters", []):
-                if f.get("filterType") == "LOT_SIZE":
-                    out[sym] = {
-                        "stepSize": float(f.get("stepSize", 0.001)),
-                        "minQty": float(f.get("minQty", 0)),
-                    }
-                    break
+                ftype = f.get("filterType")
+                if ftype == "LOT_SIZE":
+                    f_obj["stepSize"] = float(f.get("stepSize", 0.001))
+                    f_obj["minQty"] = float(f.get("minQty", 0))
+                elif ftype == "PRICE_FILTER":
+                    try:
+                        f_obj["tickSize"] = float(f.get("tickSize", 0.0001))
+                    except (TypeError, ValueError):
+                        pass
+            out[sym] = f_obj
         return out
     except Exception:
         return {}
@@ -143,9 +149,32 @@ def round_quantity(qty: float, step: float, min_qty: float) -> float:
     return round(steps * step, 8)
 
 
+def round_price_to_tick(price: float, tick: float) -> float:
+    """Округление цены к разрешённому шагу tickSize."""
+    if tick <= 0:
+        return price
+    steps = round(price / tick)
+    return round(steps * tick, 8)
+
+
 def set_leverage(symbol: str, leverage: int):
     ok, msg = _signed_request("POST", "/fapi/v1/leverage", {"symbol": symbol, "leverage": leverage})
     return ok
+
+
+def set_margin_isolated(symbol: str):
+    """
+    Включить изолированную маржу для символа.
+    Если уже ISOLATED / нет необходимости менять тип маржи — считаем это успехом.
+    """
+    ok, data = _signed_request("POST", "/fapi/v1/marginType", {"symbol": symbol, "marginType": "ISOLATED"})
+    if ok:
+        return True
+    # Binance может вернуть ошибку вида 'No need to change margin type.' — это ок.
+    text = str(data)
+    if "No need to change margin type" in text or "no need to change margin type" in text:
+        return True
+    return False
 
 
 def place_market_order(symbol: str, side: str, quantity: float):
@@ -163,16 +192,57 @@ def place_market_order(symbol: str, side: str, quantity: float):
     return True, order_id
 
 
-def place_stop_order(symbol: str, side: str, order_type: str, stop_price: float):
-    """Условный ордер: STOP_MARKET или TAKE_PROFIT_MARKET с closePosition=true."""
+def place_take_profit_limit(symbol: str, side: str, price: float, quantity: float):
+    """TP как обычный лимитный ордер reduceOnly.
+    
+    ВАЖНО: Проверяем, что позиция открыта перед выставлением reduceOnly ордера.
+    """
+    # Проверяем, что позиция действительно открыта
+    position_amt, position_side = get_position_amt(symbol)
+    if position_amt == 0:
+        return False, "Позиция не открыта, нельзя выставить reduceOnly ордер"
+    
+    # Убеждаемся, что side правильный для закрытия позиции
+    if position_side == "LONG" and side.upper() != "SELL":
+        return False, f"Неправильный side для LONG позиции: нужен SELL, получен {side}"
+    if position_side == "SHORT" and side.upper() != "BUY":
+        return False, f"Неправильный side для SHORT позиции: нужен BUY, получен {side}"
+    
     ok, data = _signed_request("POST", "/fapi/v1/order", {
         "symbol": symbol,
         "side": side.upper(),
-        "type": order_type,
-        "stopPrice": stop_price,
-        "closePosition": "true",
-        "workingType": "CONTRACT_PRICE",
+        "type": "LIMIT",
+        "price": price,
+        "timeInForce": "GTC",
+        "quantity": abs(quantity),
+        "reduceOnly": "true",
     })
+    return ok, data
+
+
+def place_stop_order(symbol: str, side: str, order_type: str, stop_price: float, quantity: float = None):
+    """Условный ордер STOP_MARKET через обычный order endpoint.
+    
+    ВАЖНО: closePosition и reduceOnly взаимоисключающие - используем только closePosition.
+    Пробуем сначала с MARK_PRICE, потом с CONTRACT_PRICE.
+    """
+    params = {
+        "symbol": symbol,
+        "side": side.upper(),
+        "type": "STOP_MARKET",
+        "stopPrice": stop_price,
+        "closePosition": "true",  # Закрыть всю позицию (НЕ используем reduceOnly вместе с closePosition!)
+    }
+    
+    # Пробуем сначала MARK_PRICE
+    params["workingType"] = "MARK_PRICE"
+    ok, data = _signed_request("POST", "/fapi/v1/order", params)
+    if ok:
+        return ok, data
+    
+    # Если не получилось, пробуем CONTRACT_PRICE
+    params["workingType"] = "CONTRACT_PRICE"
+    ok, data = _signed_request("POST", "/fapi/v1/order", params)
     return ok, data
 
 
@@ -188,6 +258,63 @@ def get_position_amt(symbol: str):
                 return 0.0, None
             return amt, "LONG" if amt > 0 else "SHORT"
     return 0.0, None
+
+
+def get_all_open_positions():
+    """Получить все открытые позиции. Возвращает список dict с symbol, positionAmt, entryPrice, markPrice."""
+    ok, data = _signed_request("GET", "/fapi/v2/positionRisk", {})
+    if not ok or not isinstance(data, list):
+        return []
+    positions = []
+    for p in data:
+        amt = float(p.get("positionAmt", 0))
+        if amt != 0:
+            positions.append({
+                "symbol": p.get("symbol"),
+                "positionAmt": amt,
+                "entryPrice": float(p.get("entryPrice", 0)),
+                "markPrice": float(p.get("markPrice", 0)),
+                "isLong": amt > 0,
+            })
+    return positions
+
+
+def get_open_orders(symbol: str):
+    """Получить открытые ордера по символу. Возвращает список ордеров."""
+    ok, data = _signed_request("GET", "/fapi/v1/openOrders", {"symbol": symbol})
+    if not ok:
+        return []
+    if not isinstance(data, list):
+        return []
+    return data
+
+
+def has_tp_sl_orders(symbol: str):
+    """Проверить, есть ли у позиции TP/SL ордера. Возвращает (has_tp, has_sl)."""
+    orders = get_open_orders(symbol)
+    has_tp = False
+    has_sl = False
+    position_amt, position_side = get_position_amt(symbol)
+    if position_amt == 0:
+        return False, False
+    
+    is_long = position_side == "LONG"
+    
+    for order in orders:
+        order_type = order.get("type", "").upper()
+        reduce_only = order.get("reduceOnly", False)
+        
+        # TAKE_PROFIT_MARKET или TAKE_PROFIT - это TP
+        if order_type in ["TAKE_PROFIT_MARKET", "TAKE_PROFIT"]:
+            has_tp = True
+        # STOP_MARKET с reduceOnly - это SL
+        elif order_type == "STOP_MARKET" and reduce_only:
+            has_sl = True
+        # LIMIT ордер с reduceOnly=true - это наш TP (как мы выставляем в place_take_profit_limit)
+        elif order_type == "LIMIT" and reduce_only:
+            has_tp = True
+    
+    return has_tp, has_sl
 
 
 def close_position_market(symbol: str, is_long: bool, quantity: float):
@@ -208,18 +335,41 @@ def set_tp_sl_with_retries(symbol: str, stop: float, take_profit: float, is_long
     Выставить TP и SL двумя ордерами (TAKE_PROFIT_MARKET, STOP_MARKET).
     Если после TP_SL_MAX_ATTEMPTS не получилось — закрыть позицию.
     """
+    # Проверяем, что позиция действительно открылась
+    position_amt, position_side = get_position_amt(symbol)
+    if position_amt == 0:
+        # Позиция еще не открылась, ждем еще немного
+        time.sleep(1.0)
+        position_amt, position_side = get_position_amt(symbol)
+        if position_amt == 0:
+            return False, False, f"Позиция по {symbol} не открылась, TP/SL не выставлены"
+    
     close_side = "SELL" if is_long else "BUY"
+    last_tp_error = None
+    last_sl_error = None
     for attempt in range(1, TP_SL_MAX_ATTEMPTS + 1):
-        ok_tp, _ = place_stop_order(symbol, close_side, "TAKE_PROFIT_MARKET", take_profit)
-        ok_sl, _ = place_stop_order(symbol, close_side, "STOP_MARKET", stop)
+        # TP: лимитный ордер reduceOnly по цене take_profit.
+        ok_tp, tp_data = place_take_profit_limit(symbol, close_side, take_profit, quantity)
+        # SL: STOP_MARKET с триггером по стоп-цене.
+        ok_sl, sl_data = place_stop_order(symbol, close_side, "STOP_MARKET", stop, quantity)
         if ok_tp and ok_sl:
             return True, False, "TP и SL выставлены"
+        if not ok_tp:
+            last_tp_error = tp_data if isinstance(tp_data, str) else str(tp_data)
+        if not ok_sl:
+            last_sl_error = sl_data if isinstance(sl_data, str) else str(sl_data)
         if attempt < TP_SL_MAX_ATTEMPTS:
             time.sleep(TP_SL_RETRY_DELAY_SEC)
+    # Детальный вывод ошибок перед закрытием позиции
+    error_msg = f"TP/SL не удалось выставить после {TP_SL_MAX_ATTEMPTS} попыток."
+    if last_tp_error:
+        error_msg += f" TP ошибка: {last_tp_error}"
+    if last_sl_error:
+        error_msg += f" SL ошибка: {last_sl_error}"
     close_ok, close_msg = close_position_market(symbol, is_long, quantity)
     if close_ok:
-        return False, True, "TP/SL не удалось выставить после попыток; позиция закрыта."
-    return False, True, f"TP/SL не удалось; закрыть не получилось: {close_msg}"
+        return False, True, error_msg + " Позиция закрыта."
+    return False, True, error_msg + f" Закрыть не получилось: {close_msg}"
 
 
 def load_state():
@@ -269,6 +419,111 @@ def append_signal_to_log(signal_dict: dict, sent_at: str = None):
             json.dump(log, f, ensure_ascii=False, indent=2)
     except Exception as e:
         print("  Ошибка записи лога сигналов:", e)
+
+
+def get_signal_from_log(symbol: str, is_long: bool):
+    """Найти последний сигнал для символа в логе. Возвращает (stop, tp) или (None, None)."""
+    try:
+        if not os.path.isfile(SIGNALS_LOG_FILE):
+            return None, None
+        with open(SIGNALS_LOG_FILE, "r", encoding="utf-8") as f:
+            log = json.load(f)
+        if not isinstance(log, list):
+            return None, None
+        # Ищем последний сигнал для этого символа с правильным направлением
+        direction = "LONG" if is_long else "SHORT"
+        for record in reversed(log):
+            if record.get("symbol") == symbol and record.get("direction", "").upper() == direction:
+                stop = record.get("stop")
+                tp = record.get("take_profit")
+                if stop and tp:
+                    return float(stop), float(tp)
+    except Exception as e:
+        print(f"  Ошибка чтения лога сигналов для {symbol}:", e)
+    return None, None
+
+
+def calculate_tp_sl_from_entry(symbol: str, entry_price: float, is_long: bool):
+    """Пересчитать TP/SL на основе entry price и текущего ATR. Возвращает (stop, tp)."""
+    try:
+        # Получаем историю для расчета ATR
+        df = fetch_binance_history(symbol, "5m", days=5)
+        if df is None or len(df) < MIN_BARS:
+            return None, None
+        df = add_indicators(df)
+        if "atr" not in df.columns or len(df) == 0:
+            return None, None
+        last_atr = df["atr"].iloc[-1]
+        if pd.isna(last_atr) or last_atr <= 0:
+            last_atr = entry_price * 0.01  # Fallback
+        
+        stop_atr_mul = CONFIG.get("STOP_ATR_MUL", 0.3)
+        if is_long:
+            stop = entry_price - last_atr * stop_atr_mul
+            risk = entry_price - stop
+            tp = entry_price + risk * RR_RATIO
+        else:
+            stop = entry_price + last_atr * stop_atr_mul
+            risk = stop - entry_price
+            tp = entry_price - risk * RR_RATIO
+        return stop, tp
+    except Exception as e:
+        print(f"  Ошибка расчета TP/SL для {symbol}:", e)
+    return None, None
+
+
+def restore_tp_sl_for_positions():
+    """Проверить все открытые позиции и выставить TP/SL для тех, у которых их нет."""
+    positions = get_all_open_positions()
+    if not positions:
+        return
+    
+    filters_cache = get_symbol_filters()
+    restored_count = 0
+    
+    for pos in positions:
+        # Пропускаем, если позиция слишком маленькая (может быть остаток от закрытой позиции)
+        if abs(pos["positionAmt"]) < 0.001:
+            continue
+        symbol = pos["symbol"]
+        is_long = pos["isLong"]
+        entry_price = pos["entryPrice"]
+        position_amt = abs(pos["positionAmt"])
+        
+        # Проверяем, есть ли уже TP/SL ордера
+        has_tp, has_sl = has_tp_sl_orders(symbol)
+        if has_tp and has_sl:
+            continue  # Уже есть TP/SL, пропускаем
+        
+        print(f"  [ВОССТАНОВЛЕНИЕ] {_safe_console(symbol)}: позиция без TP/SL, пытаюсь восстановить...")
+        
+        # Пытаемся найти stop/tp в логе сигналов
+        stop, tp = get_signal_from_log(symbol, is_long)
+        
+        # Если не нашли в логе - пересчитываем на основе entry и ATR
+        if stop is None or tp is None:
+            stop, tp = calculate_tp_sl_from_entry(symbol, entry_price, is_long)
+        
+        if stop is None or tp is None:
+            print(f"    Не удалось определить stop/tp для {_safe_console(symbol)}")
+            continue
+        
+        # Округляем цены по tickSize
+        filt_prices = filters_cache.get(symbol, {})
+        tick = filt_prices.get("tickSize", 0.0001)
+        stop = round_price_to_tick(stop, tick)
+        tp = round_price_to_tick(tp, tick)
+        
+        # Выставляем TP/SL
+        ok, closed, msg = set_tp_sl_with_retries(symbol, stop, tp, is_long, position_amt)
+        if ok:
+            print(f"    ✓ TP/SL восстановлены для {_safe_console(symbol)}: SL={format_price(stop)}, TP={format_price(tp)}")
+            restored_count += 1
+        else:
+            print(f"    ✗ Не удалось восстановить TP/SL для {_safe_console(symbol)}: {msg}")
+    
+    if restored_count > 0:
+        print(f"  Восстановлено TP/SL для {restored_count} позиций.")
 
 
 def wait_until_next_5m():
@@ -362,7 +617,7 @@ def main():
     print()
     print("=" * 64)
     print("  5m HYBRID LIVE — Binance USDT-M Futures")
-    print("  Стратегия: hybrid  |  Вход: MARKET  |  R:R 1:3  SL=0.3R")
+    print("  Стратегия: hybrid  |  Вход: MARKET  |  R:R 1:3  SL=0.3*ATR")
     print(f"  Позиция: ${POSITION_MARGIN_USD:.2f} маржа x {LEVERAGE} = ${POSITION_NOTIONAL_USD:.2f} номинал (мин. позиция для теста)")
     if ONLY_TOP_COINS:
         print(f"  Режим: только топ-монеты по TP ({len(TOP_COINS_BY_TP)} шт.) — ONLY_TOP_COINS=1")
@@ -396,9 +651,19 @@ def main():
         MIN_NOTIONAL_MAP = {}
     state_set = load_state()
 
+    # При старте проверяем и восстанавливаем TP/SL для всех открытых позиций
+    if not DRY_RUN:
+        print("\n  Проверка открытых позиций и восстановление TP/SL...")
+        restore_tp_sl_for_positions()
+
     while True:
         wait_until_next_5m()
         print(f"\n  Проверка {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        
+        # Перед каждой проверкой новых сигналов проверяем открытые позиции
+        if not DRY_RUN:
+            restore_tp_sl_for_positions()
+        
         state_set, new_signals = run_cycle(state_set)
         if not new_signals:
             print("  Новых сигналов нет.")
@@ -411,6 +676,11 @@ def main():
             entry = float(sig["entry"])
             stop = float(sig["stop"])
             tp = float(sig["take_profit"])
+            # Округляем SL/TP к разрешённому шагу цены (tickSize), чтобы не было ошибок precision.
+            filt_prices = filters_cache.get(symbol, {})
+            tick = filt_prices.get("tickSize", 0.0001)
+            stop = round_price_to_tick(stop, tick)
+            tp = round_price_to_tick(tp, tick)
             print(f"  [СИГНАЛ] {_safe_console(symbol)}  {direction}  Entry:{format_price(entry)}  SL:{format_price(stop)}  TP:{format_price(tp)}  | {sig['signal_time']}")
             append_signal_to_log(sig)
 
@@ -440,6 +710,9 @@ def main():
             if quantity <= 0:
                 quantity = min_qty if min_qty > 0 else raw_qty
 
+            # Пытаемся включить изолированную маржу (неблокирующе, только попытка).
+            set_margin_isolated(symbol)
+
             if not set_leverage(symbol, LEVERAGE):
                 print("    Не удалось выставить плечо, пропуск")
                 continue
@@ -451,9 +724,18 @@ def main():
                 continue
 
             print(f"    Ордер отправлен. Vol={quantity}. Выставляю TP/SL (до {TP_SL_MAX_ATTEMPTS} попыток)...")
-            time.sleep(0.5)
+            time.sleep(3.0)  # Увеличена задержка, чтобы позиция точно успела открыться и синхронизироваться
             is_long = direction.upper() == "LONG"
-            tp_sl_ok, closed_anyway, tp_sl_msg = set_tp_sl_with_retries(symbol, stop, tp, is_long, quantity)
+            
+            # Получаем актуальный размер позиции перед выставлением TP/SL
+            position_amt, position_side = get_position_amt(symbol)
+            if position_amt == 0:
+                print(f"    Позиция по {_safe_console(symbol)} не открылась, пропуск TP/SL")
+                continue
+            
+            # Используем реальный размер позиции для TP/SL
+            actual_quantity = abs(position_amt)
+            tp_sl_ok, closed_anyway, tp_sl_msg = set_tp_sl_with_retries(symbol, stop, tp, is_long, actual_quantity)
             if tp_sl_ok:
                 print("    TP и SL выставлены.")
                 print(f"    >>> Вход: {format_price(entry)}  |  SL: {format_price(stop)}  |  TP: {format_price(tp)}  <<<")

@@ -18,5 +18,105 @@
     "signal_time": "2026-02-09 12:10",
     "sent_at": "2026-02-09 15:16:53",
     "outcome": null
+  },
+  {
+    "symbol": "SUIUSDT",
+    "direction": "SHORT",
+    "entry": 0.9405,
+    "stop": 0.94486427,
+    "take_profit": 0.92740719,
+    "signal_time": "2026-02-09 12:50",
+    "sent_at": "2026-02-09 15:55:32",
+    "outcome": null
+  },
+  {
+    "symbol": "FLOWUSDT",
+    "direction": "SHORT",
+    "entry": 0.05048,
+    "stop": 0.05102966,
+    "take_profit": 0.04883103,
+    "signal_time": "2026-02-09 12:50",
+    "sent_at": "2026-02-09 15:55:57",
+    "outcome": null
+  },
+  {
+    "symbol": "RENDERUSDT",
+    "direction": "SHORT",
+    "entry": 1.309,
+    "stop": 1.31621979,
+    "take_profit": 1.28734063,
+    "signal_time": "2026-02-09 13:00",
+    "sent_at": "2026-02-09 16:05:33",
+    "outcome": null
+  },
+  {
+    "symbol": "AWEUSDT",
+    "direction": "LONG",
+    "entry": 0.08022,
+    "stop": 0.07952002,
+    "take_profit": 0.08231994,
+    "signal_time": "2026-02-09 13:15",
+    "sent_at": "2026-02-09 16:20:32",
+    "outcome": null
+  },
+  {
+    "symbol": "ZAMAUSDT",
+    "direction": "SHORT",
+    "entry": 0.02671,
+    "stop": 0.02685,
+    "take_profit": 0.02629,
+    "signal_time": "2026-02-09 13:40",
+    "sent_at": "2026-02-09 16:45:40",
+    "outcome": null
+  },
+  {
+    "symbol": "BEATUSDT",
+    "direction": "LONG",
+    "entry": 0.1988,
+    "stop": 0.1981,
+    "take_profit": 0.2009,
+    "signal_time": "2026-02-09 13:40",
+    "sent_at": "2026-02-09 16:45:40",
+    "outcome": null
+  },
+  {
+    "symbol": "EIGENUSDT",
+    "direction": "SHORT",
+    "entry": 0.2022,
+    "stop": 0.2031,
+    "take_profit": 0.1995,
+    "signal_time": "2026-02-09 13:40",
+    "sent_at": "2026-02-09 16:45:41",
+    "outcome": null
+  },
+  {
+    "symbol": "ARCUSDT",
+    "direction": "LONG",
+    "entry": 0.07247,
+    "stop": 0.0722635,
+    "take_profit": 0.0730895,
+    "signal_time": "2026-02-09 13:45",
+    "sent_at": "2026-02-09 16:50:33",
+    "outcome": null
+  },
+  {
+    "symbol": "SIGNUSDT",
+    "direction": "SHORT",
+    "entry": 0.02663,
+    "stop": 0.0266594,
+    "take_profit": 0.02654179,
+    "signal_time": "2026-02-09 13:45",
+    "sent_at": "2026-02-09 16:51:03",
+    "outcome": null
+  },
+  {
+    "symbol": "BEATUSDT",
+    "direction": "SHORT",
+    "entry": 0.1977,
+    "stop": 0.1984,
+    "take_profit": 0.1956,
+    "signal_time": "2026-02-09 13:50",
+    "sent_at": "2026-02-09 16:55:46",
+    "outcome": null
   }
 ]

@@ -198,6 +198,35 @@ def fetch_binance_history(symbol, days, interval="5m"):
     return df
 
 
+def get_symbol_tick_size(symbol: str) -> float:
+    """Получить tickSize для символа из exchangeInfo."""
+    url = f"{BINANCE_BASE}/fapi/v1/exchangeInfo"
+    try:
+        r = requests.get(url, timeout=API_TIMEOUT)
+        if r.status_code != 200:
+            return 0.0001
+        data = r.json()
+        for s in data.get("symbols", []):
+            if s.get("symbol") == symbol:
+                for f in s.get("filters", []):
+                    if f.get("filterType") == "PRICE_FILTER":
+                        try:
+                            return float(f.get("tickSize", 0.0001))
+                        except (TypeError, ValueError):
+                            return 0.0001
+    except Exception:
+        pass
+    return 0.0001
+
+
+def round_price_to_tick(price: float, tick: float) -> float:
+    """Округление цены к разрешённому шагу tickSize (как в лайв-скрипте)."""
+    if tick <= 0:
+        return price
+    steps = round(price / tick)
+    return round(steps * tick, 8)
+
+
 def run_backtest_one_binance(symbol, days, verbose=False):
     """Run backtest for one Binance symbol. Returns dict with stats or None."""
     df = fetch_binance_history(symbol, days, interval="5m")
@@ -212,6 +241,13 @@ def run_backtest_one_binance(symbol, days, verbose=False):
     signals = get_signals(df)
     if not signals:
         return {"symbol": symbol, "trades": 0, "tp": 0, "sl": 0, "open": 0, "net_r": 0.0, "win_rate": 0, "avg_price": avg_price}
+    # Округляем цены TP/SL по tickSize (как в лайв-скрипте) для консистентности
+    tick_size = get_symbol_tick_size(symbol)
+    for sig in signals:
+        if "stop" in sig:
+            sig["stop"] = round_price_to_tick(sig["stop"], tick_size)
+        if "take_profit" in sig:
+            sig["take_profit"] = round_price_to_tick(sig["take_profit"], tick_size)
     trades, total_r = backtest(df, signals)
     tp_count = sum(1 for t in trades if t["outcome"] == "TP")
     sl_count = sum(1 for t in trades if t["outcome"] == "SL")
@@ -252,7 +288,7 @@ def main():
     symbols_list = [s for s in symbols_list if float(notional_map.get(s["symbol"], 999)) <= 5.3]
     print()
     print("=" * 72)
-    print("  BACKTEST BINANCE 5m (USDT-M Futures)  Strategy: hybrid   R:R 1:3  SL=0.3R")
+    print("  BACKTEST BINANCE 5m (USDT-M Futures)  Strategy: hybrid   R:R 1:3  SL=0.3*ATR")
     print(f"  Last {days} days  |  {len(symbols_list)} symbols (vol > {MIN_VOLUME_24H_USDT/1e6:.0f}M, MIN_NOTIONAL <= 5.3 USDT)")
     print("=" * 72)
     results = []

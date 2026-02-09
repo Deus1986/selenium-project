@@ -39,7 +39,7 @@ CONFIG = {
     "RSI_SHORT_MIN": 45,
     "USE_ADX": False,
     "ADX_MIN": 20,
-    "STOP_ATR_MUL": 1.2,
+    "STOP_ATR_MUL": 0.3,
     "COOLDOWN_BARS": 16,
     "STRONG_BAR_PCT": 0.55,
     "BOS_ONLY": False,
@@ -290,7 +290,7 @@ def get_signals_hybrid(df):
     rsi_high = CONFIG.get("RSI_LONG_MAX", 57)
     rsi_low = CONFIG.get("RSI_SHORT_MIN", 43)
     strong_pct = CONFIG.get("STRONG_BAR_PCT", 0.5)
-    atr_mul = 1.5
+    atr_mul = CONFIG.get("STOP_ATR_MUL", 0.3)
     for i in range(55, len(df) - 1):
         row = df.iloc[i]
         if np.isnan(row["ema_20"]) or np.isnan(row["ema_slow"]) or row["atr"] <= 0:
@@ -317,9 +317,10 @@ def get_signals_hybrid(df):
         bar_range = row["high"] - row["low"]
         not_climax = bar_range <= atr * 2.0 if atr > 0 else True
 
+        atr_mul_stop = CONFIG.get("STOP_ATR_MUL", 0.3)
         if in_uptrend and prev_above_ema50 and touch_ema20_long and bullish_bar and rsi_mid and vol_ok and not_climax and (i - last_long >= cd_pb):
             stop = min(float(row["low"]), open_next - atr * atr_mul)
-            if stop >= open_next or open_next - stop < atr * 0.25:
+            if stop >= open_next or open_next - stop < atr * 0.1:
                 pass
             elif CONFIG.get("SKIP_WEEKENDS") and i + 1 < len(df) and df["is_weekend"].iloc[i + 1]:
                 pass
@@ -333,7 +334,7 @@ def get_signals_hybrid(df):
                 continue
         if in_downtrend and prev_below_ema50 and touch_ema20_short and bearish_bar and rsi_mid and vol_ok and not_climax and (i - last_short >= cd_pb):
             stop = max(float(row["high"]), open_next + atr * atr_mul)
-            if stop <= open_next or stop - open_next < atr * 0.25:
+            if stop <= open_next or stop - open_next < atr * 0.1:
                 pass
             elif CONFIG.get("SKIP_WEEKENDS") and i + 1 < len(df) and df["is_weekend"].iloc[i + 1]:
                 pass
@@ -379,8 +380,8 @@ def get_signals_hybrid(df):
                 signals.append(sig)
                 last_long = i - 1
         elif cross_short and confirm_short and vol_c and rsi_ok_s and strong_short and (i - 1 - last_short >= cd_cross):
-            stop = entry + atr * 1.2
-            if stop > entry and (stop - entry) >= atr * 0.3 and not (CONFIG.get("SKIP_WEEKENDS") and df["is_weekend"].iloc[i]):
+            stop = entry + atr * CONFIG.get("STOP_ATR_MUL", 0.3)
+            if stop > entry and (stop - entry) >= atr * 0.1 and not (CONFIG.get("SKIP_WEEKENDS") and df["is_weekend"].iloc[i]):
                 risk = stop - entry
                 tp = entry - risk * RR_RATIO
                 sig = _make_signal(i, "SHORT", entry, stop, tp, signal_time)
@@ -421,7 +422,7 @@ def get_signals_ema9_21(df):
         dt = confirm["datetime"]
         signal_time = dt.strftime("%Y-%m-%d %H:%M") if hasattr(dt, "strftime") else str(dt)
         if cross_long and confirm_long and vol_ok and rsi_ok_long and (i - 1 - last_long >= cooldown):
-            stop = entry - atr * CONFIG.get("STOP_ATR_MUL", 1.2)
+            stop = entry - atr * CONFIG.get("STOP_ATR_MUL", 0.3)
             if stop >= entry:
                 continue
             if CONFIG.get("SKIP_WEEKENDS") and df["is_weekend"].iloc[i]:
@@ -431,7 +432,7 @@ def get_signals_ema9_21(df):
             signals.append(_make_signal(i, "LONG", entry, stop, tp, signal_time))
             last_long = i - 1
         elif cross_short and confirm_short and vol_ok and rsi_ok_short and (i - 1 - last_short >= cooldown):
-            stop = entry + atr * CONFIG.get("STOP_ATR_MUL", 1.2)
+            stop = entry + atr * CONFIG.get("STOP_ATR_MUL", 0.3)
             if stop <= entry:
                 continue
             if CONFIG.get("SKIP_WEEKENDS") and df["is_weekend"].iloc[i]:
@@ -500,8 +501,8 @@ def get_signals(df):
 
         cooldown = CONFIG.get("COOLDOWN_BARS", 6)
         if long_trigger and vol_ok and confirm_long and rsi_ok_long and strong_long_bar and (i - last_long >= cooldown):
-            stop_cand = float(swing_low) if pd.notna(swing_low) else entry - atr * 1.5
-            stop = min(stop_cand, entry - atr * CONFIG.get("STOP_ATR_MUL", 1.2))
+            stop_cand = float(swing_low) if pd.notna(swing_low) else entry - atr * 0.5
+            stop = min(stop_cand, entry - atr * CONFIG.get("STOP_ATR_MUL", 0.3))
             if stop >= entry:
                 continue
             if CONFIG.get("SKIP_WEEKENDS") and df["is_weekend"].iloc[i]:
@@ -511,8 +512,8 @@ def get_signals(df):
             signals.append({"bar_index": i, "direction": "LONG", "entry": entry, "stop": stop, "take_profit": tp, "signal_time": signal_time})
             last_long = i
         elif short_trigger and vol_ok and confirm_short and rsi_ok_short and strong_short_bar and (i - last_short >= cooldown):
-            stop_cand = float(swing_high) if pd.notna(swing_high) else entry + atr * 1.5
-            stop = max(stop_cand, entry + atr * CONFIG.get("STOP_ATR_MUL", 1.2))
+            stop_cand = float(swing_high) if pd.notna(swing_high) else entry + atr * 0.5
+            stop = max(stop_cand, entry + atr * CONFIG.get("STOP_ATR_MUL", 0.3))
             if stop <= entry:
                 continue
             if CONFIG.get("SKIP_WEEKENDS") and df["is_weekend"].iloc[i]:
